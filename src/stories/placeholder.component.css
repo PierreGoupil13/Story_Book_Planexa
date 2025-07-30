@@ -1,0 +1,144 @@
+/* Input Field Component - Basé sur le design Figma */
+
+.input-field-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 368px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Label */
+.input-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Container de l'input avec icônes */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Champ input principal */
+.input-field {
+  width: 100%;
+  height: 44px;
+  padding: 12px 40px 12px 40px; /* Espace pour les icônes */
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  background-color: #FFFFFF;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input-field::placeholder {
+  color: #9CA3AF;
+  font-size: 14px;
+}
+
+/* États de focus */
+.input-field:focus {
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-field:hover:not(:focus) {
+  border-color: #9CA3AF;
+}
+
+/* État disabled */
+.input-field:disabled {
+  background-color: #F9FAFB;
+  color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+/* Icônes */
+.input-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  z-index: 1;
+}
+
+.left-icon {
+  left: 12px;
+}
+
+.right-icon {
+  right: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.right-icon:hover {
+  opacity: 0.7;
+}
+
+/* Supporting text */
+.supporting-text {
+  font-size: 12px;
+  color: #6B7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* États d'erreur */
+.input-field-container.error .input-field {
+  border-color: #EF4444;
+}
+
+.input-field-container.error .input-field:focus {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.input-field-container.error .supporting-text {
+  color: #EF4444;
+}
+
+/* États de succès */
+.input-field-container.success .input-field {
+  border-color: #10B981;
+}
+
+.input-field-container.success .input-field:focus {
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.input-field-container.success .supporting-text {
+  color: #10B981;
+}
+
+/* Variantes de taille */
+.input-field-container.small {
+  width: 280px;
+}
+
+.input-field-container.small .input-field {
+  height: 36px;
+  padding: 8px 32px 8px 32px;
+  font-size: 13px;
+}
+
+.input-field-container.large {
+  width: 480px;
+}
+
+.input-field-container.large .input-field {
+  height: 52px;
+  padding: 16px 48px 16px 48px;
+  font-size: 16px;
+}
