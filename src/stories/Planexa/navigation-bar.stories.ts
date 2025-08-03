@@ -56,7 +56,7 @@ export const Default: Story = {
       ],
       activeViewMode: 'month',
       showTodayButton: true,
-      todayButtonText: 'Aujourd\'hui',
+      todayButtonText: "Aujourd'hui",
       primaryButtonText: 'Nouveau RDV',
       showPrimaryButton: true
     }
@@ -75,7 +75,7 @@ export const MedicalCalendar: Story = {
       ],
       activeViewMode: 'week',
       showTodayButton: true,
-      todayButtonText: 'Aujourd\'hui',
+      todayButtonText: "Aujourd'hui",
       primaryButtonText: 'Nouveau Patient',
       showPrimaryButton: true
     }
@@ -129,7 +129,7 @@ export const FullFeatured: Story = {
       ],
       activeViewMode: 'day',
       showTodayButton: true,
-      todayButtonText: 'Aujourd\'hui',
+      todayButtonText: "Aujourd'hui",
       primaryButtonText: 'Nouveau RDV',
       showPrimaryButton: true
     }
@@ -147,7 +147,7 @@ export const Mobile: Story = {
       ],
       activeViewMode: 'day',
       showTodayButton: true,
-      todayButtonText: 'Aujourd\'hui',
+      todayButtonText: "Aujourd'hui",
       primaryButtonText: 'Nouveau',
       showPrimaryButton: true
     }
@@ -176,7 +176,7 @@ export const Playground: Story = {
       ],
       activeViewMode: 'month',
       showTodayButton: true,
-      todayButtonText: 'Aujourd\'hui',
+      todayButtonText: "Aujourd'hui",
       primaryButtonText: 'Nouveau RDV',
       showPrimaryButton: true
     }

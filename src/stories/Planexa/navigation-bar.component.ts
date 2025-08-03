@@ -60,7 +60,7 @@ export interface NavigationBarConfig {
           class="action-button action-button--secondary"
           (click)="onTodayClick()"
         >
-          {{ config.todayButtonText || 'Aujourd\'hui' }}
+          {{ config.todayButtonText || "Aujourd'hui" }}
         </button>
         
         <button 
@@ -91,7 +91,7 @@ export class NavigationBarComponent {
     ],
     activeViewMode: 'month',
     showTodayButton: true,
-    todayButtonText: 'Aujourd\'hui',
+    todayButtonText: "Aujourd'hui",
     primaryButtonText: 'Nouveau RDV',
     showPrimaryButton: true
   };

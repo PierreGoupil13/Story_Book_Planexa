@@ -22,8 +22,8 @@ const meta: Meta<SegmentedControlComponent> = {
       description: 'ID de l\'onglet actuellement actif',
     },
     width: {
-      control: { type: 'range', min: 300, max: 1200, step: 50 },
-      description: 'Largeur du composant en pixels',
+      control: { type: 'range', min: 250, max: 1200, step: 50 },
+      description: 'Largeur du composant en pixels (optionnelle, par défaut responsive)',
     },
   },
   tags: ['autodocs'],
@@ -149,8 +149,8 @@ export const Compact: Story = {
   },
 };
 
-/** Version responsive */
-export const Responsive: Story = {
+/** Version mobile */
+export const Mobile: Story = {
   args: {
     tabs: [
       { id: 'mobile1', label: 'Home', icon: 'calendar' },
@@ -158,7 +158,6 @@ export const Responsive: Story = {
       { id: 'mobile3', label: 'Profile', icon: 'hexagon' },
     ],
     activeTabId: 'mobile1',
-    width: 320,
   },
   parameters: {
     viewport: {
@@ -167,6 +166,27 @@ export const Responsive: Story = {
     docs: {
       description: {
         story: 'Version adaptée aux écrans mobiles avec largeur réduite.',
+      },
+    },
+  },
+};
+
+/** Responsive - largeur automatique */
+export const Responsive: Story = {
+  args: {
+    tabs: [
+      { id: 'segment1', label: 'Calendrier', icon: 'calendar' },
+      { id: 'segment2', label: 'Patient', icon: 'patient' },
+      { id: 'segment3', label: 'Hexagone', icon: 'hexagon' },
+      { id: 'segment4', label: 'Sans icône', icon: false },
+    ],
+    activeTabId: 'segment1',
+    // Pas de width définie = responsive automatique
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Version responsive qui s\'adapte automatiquement à la largeur du conteneur. Redimensionnez la fenêtre ou changez de viewport pour voir l\'adaptation.',
       },
     },
   },

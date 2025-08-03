@@ -13,7 +13,7 @@ export interface TabItem {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="segmented-control" [style.width.px]="width">
+    <div class="segmented-control" [style.width]="width ? width + 'px' : '100%'">
       <div 
         *ngFor="let tab of tabs; trackBy: trackByFn; let i = index"
         class="segment"
@@ -67,9 +67,9 @@ export class SegmentedControlComponent {
   @Input()
   activeTabId?: string;
 
-  /** Largeur du composant */
+  /** Largeur du composant (optionnelle, par défaut responsive) */
   @Input()
-  width: number = 850;
+  width?: number;
 
   /** Événement de changement d'onglet */
   @Output()
