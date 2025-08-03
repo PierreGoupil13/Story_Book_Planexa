@@ -2,6 +2,146 @@
     "pipes": [],
     "interfaces": [
         {
+            "name": "NavigationBarConfig",
+            "id": "interface-NavigationBarConfig-12d68265e03b3d6ecf2227ff2f2de12b2b6a2a9c30463857bcc2b6ed09f0edd75becb7112481f869625b31a2f658936c6040db469b50b2ca18e5300220d3065c",
+            "file": "src/stories/Planexa/navigation-bar.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\n\nexport interface NavigationBarConfig {\n  title: string;\n  viewModes: TabItem[];\n  activeViewMode: string;\n  showTodayButton?: boolean;\n  todayButtonText?: string;\n  primaryButtonText?: string;\n  showPrimaryButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-navigation-bar',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent],\n  template: `\n    <div class=\"navigation-bar\">\n      <!-- Section gauche : Titre et navigation -->\n      <div class=\"left-section\">\n        <h2 class=\"title\">{{ config.title }}</h2>\n        <div class=\"nav-buttons\">\n          <button \n            class=\"nav-button nav-button--left\" \n            (click)=\"onPreviousClick()\"\n            [attr.aria-label]=\"'Période précédente'\"\n          >\n            <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n              <path d=\"M10.75 12.25L10.131 11.6312L6.894 8.375H14.5V7.125H6.894L10.131 3.8687L10.75 3.25L6.5 7L10.75 12.25Z\" fill=\"currentColor\"/>\n            </svg>\n          </button>\n          <button \n            class=\"nav-button nav-button--right\" \n            (click)=\"onNextClick()\"\n            [attr.aria-label]=\"'Période suivante'\"\n          >\n            <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n              <path d=\"M5.25 3.75L5.869 4.3687L9.106 7.625H1.5V8.875H9.106L5.869 12.1312L5.25 12.75L9.5 9L5.25 3.75Z\" fill=\"currentColor\"/>\n            </svg>\n          </button>\n        </div>\n      </div>\n\n      <!-- Section centre : Contrôle segmenté -->\n      <div class=\"center-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.viewModes\"\n          [activeTabId]=\"config.activeViewMode\"\n          [width]=\"300\"\n          (tabChange)=\"onViewModeChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- Section droite : Boutons d'action -->\n      <div class=\"right-section\">\n        <button \n          *ngIf=\"config.showTodayButton\" \n          class=\"action-button action-button--secondary\"\n          (click)=\"onTodayClick()\"\n        >\n          {{ config.todayButtonText || 'Aujourd\\'hui' }}\n        </button>\n        \n        <button \n          *ngIf=\"config.showPrimaryButton\" \n          class=\"action-button action-button--primary\"\n          (click)=\"onPrimaryButtonClick()\"\n        >\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" class=\"button-icon\">\n            <circle cx=\"8\" cy=\"8\" r=\"7.25\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n            <path d=\"M8 4.5V11.5M4.5 8H11.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>\n          </svg>\n          {{ config.primaryButtonText || 'Nouveau RDV' }}\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['./navigation-bar.component.css'],\n})\nexport class NavigationBarComponent {\n  /** Configuration de la barre de navigation */\n  @Input()\n  config: NavigationBarConfig = {\n    title: 'Juillet 2025',\n    viewModes: [\n      { id: 'month', label: 'Mois', icon: false },\n      { id: 'week', label: 'Semaine', icon: false },\n      { id: 'day', label: 'Jour', icon: false }\n    ],\n    activeViewMode: 'month',\n    showTodayButton: true,\n    todayButtonText: 'Aujourd\\'hui',\n    primaryButtonText: 'Nouveau RDV',\n    showPrimaryButton: true\n  };\n\n  /** Événements */\n  @Output()\n  previousClick = new EventEmitter<void>();\n\n  @Output()\n  nextClick = new EventEmitter<void>();\n\n  @Output()\n  viewModeChange = new EventEmitter<TabItem>();\n\n  @Output()\n  todayClick = new EventEmitter<void>();\n\n  @Output()\n  primaryButtonClick = new EventEmitter<void>();\n\n  onPreviousClick(): void {\n    this.previousClick.emit();\n  }\n\n  onNextClick(): void {\n    this.nextClick.emit();\n  }\n\n  onViewModeChange(tab: TabItem): void {\n    this.config.activeViewMode = tab.id;\n    this.viewModeChange.emit(tab);\n  }\n\n  onTodayClick(): void {\n    this.todayClick.emit();\n  }\n\n  onPrimaryButtonClick(): void {\n    this.primaryButtonClick.emit();\n  }\n}\n",
+            "properties": [
+                {
+                    "name": "activeViewMode",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "primaryButtonText",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "showPrimaryButton",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "showTodayButton",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "todayButtonText",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "viewModes",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TabItem[]",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
+            "name": "TabItem",
+            "id": "interface-TabItem-7978fde189c8389e6653da016a147a6ca0c5f62d9d24ce13eb6bba0b5b583cf24302340d8e20c63797570f6a954316c0f8125d5cc079cc6d951abadcac947c52",
+            "file": "src/stories/Planexa/segmented-control.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\nexport interface TabItem {\n  id: string;\n  label: string;\n  icon?: 'calendar' | 'patient' | 'hexagon' | false;\n  disabled?: boolean;\n}\n\n@Component({\n  selector: 'storybook-segmented-control',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"segmented-control\" [style.width.px]=\"width\">\n      <div \n        *ngFor=\"let tab of tabs; trackBy: trackByFn; let i = index\"\n        class=\"segment\"\n        [class.active]=\"tab.id === activeTabId\"\n        [class.disabled]=\"tab.disabled\"\n        (click)=\"selectTab(tab)\"\n        [attr.data-testid]=\"'segment-' + tab.id\"\n      >\n        <!-- Icône hexagonale -->\n        <div *ngIf=\"tab.icon !== false\" class=\"segment-icon\">\n          <!-- Icône Calendrier -->\n          <svg *ngIf=\"tab.icon === 'calendar'\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M4 1V3M12 1V3M2 5H14M3 3H13C13.5523 3 14 3.44772 14 4V13C14 13.5523 13.5523 14 13 14H3C2.44772 14 2 13.5523 2 13V4C2 3.44772 2.44772 3 3 3Z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            <circle cx=\"6\" cy=\"8\" r=\"0.5\" fill=\"currentColor\"/>\n            <circle cx=\"10\" cy=\"8\" r=\"0.5\" fill=\"currentColor\"/>\n            <circle cx=\"6\" cy=\"11\" r=\"0.5\" fill=\"currentColor\"/>\n            <circle cx=\"10\" cy=\"11\" r=\"0.5\" fill=\"currentColor\"/>\n          </svg>\n          \n          <!-- Icône Patient -->\n          <svg *ngIf=\"tab.icon === 'patient'\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <circle cx=\"8\" cy=\"4\" r=\"2.5\" stroke=\"currentColor\" stroke-width=\"1.5\" fill=\"none\"/>\n            <path d=\"M3 14C3 11.2386 5.23858 9 8 9C10.7614 9 13 11.2386 13 14\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>\n            <path d=\"M7 12H9M8 11V13\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n          </svg>\n          \n          <!-- Icône Hexagonale (original) -->\n          <svg *ngIf=\"tab.icon === 'hexagon' || tab.icon === true\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M8.252 4.0679L2.252 0.567901C2.17554 0.523334 2.08859 0.499756 2 0.499756C1.91141 0.499756 1.82446 0.523334 1.748 0.567901L-4.252 4.0679C-4.32754 4.11196 -4.39013 4.17496 -4.43363 4.25084C-4.47714 4.32672 -4.5 4.41254 -4.5 4.4999V11.4999C-4.5 11.5873 -4.47714 11.6732 -4.43363 11.749C-4.39013 11.8248 -4.32754 11.8879 -4.252 11.9319L1.748 15.4319C1.82446 15.4765 1.91141 15.5001 2 15.5001C2.08859 15.5001 2.17554 15.4765 2.252 15.4319L8.252 11.9319C8.32754 11.8879 8.39013 11.8248 8.43363 11.749C8.47714 11.6732 8.5 11.5873 8.5 11.4999V4.4999C8.5 4.41254 8.47714 4.32672 8.43363 4.25084C8.39013 4.17496 8.32754 4.11196 8.252 4.0679ZM2 1.5789L7.008 4.4999L2 7.4209L-3.008 4.4999L2 1.5789ZM-3.5 5.3699L1.5 8.2864V14.1299L-3.5 11.2129V5.3699ZM2.5 14.1299V8.2869L7.5 5.3704V11.2129L2.5 14.1299Z\" fill=\"currentColor\"/>\n          </svg>\n        </div>\n        \n        <!-- Label du segment -->\n        <span class=\"segment-label\">{{ tab.label }}</span>\n      </div>\n    </div>\n  `,\n  styleUrls: ['./segmented-control.component.css'],\n})\nexport class SegmentedControlComponent {\n  /** Liste des onglets */\n  @Input()\n  tabs: TabItem[] = [\n    { id: 'segment1', label: 'Calendrier', icon: 'calendar' },\n    { id: 'segment2', label: 'Patient', icon: 'patient' },\n    { id: 'segment3', label: 'Hexagone', icon: 'hexagon' },\n    { id: 'segment4', label: 'Sans icône', icon: false }\n  ];\n\n  /** ID de l'onglet actif */\n  @Input()\n  activeTabId?: string;\n\n  /** Largeur du composant */\n  @Input()\n  width: number = 850;\n\n  /** Événement de changement d'onglet */\n  @Output()\n  tabChange = new EventEmitter<TabItem>();\n\n  ngOnInit() {\n    // Sélectionner le premier onglet par défaut si aucun n'est actif\n    if (!this.activeTabId && this.tabs.length > 0) {\n      this.activeTabId = this.tabs[0].id;\n    }\n  }\n\n  selectTab(tab: TabItem): void {\n    if (tab.disabled) return;\n    \n    this.activeTabId = tab.id;\n    this.tabChange.emit(tab);\n  }\n\n  trackByFn(index: number, item: TabItem): string {\n    return item.id;\n  }\n}\n",
+            "properties": [
+                {
+                    "name": "disabled",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "icon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "\"calendar\" | \"patient\" | \"hexagon\" | ",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "id",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
             "name": "User",
             "id": "interface-User-d4821beac0e4a852e513391b7470981c4353fdd95a18628bb68136c8695b489ee15b926e2e5031bc26cf30e1508e0a362c3ee13a06734702b4d15af140e485d5",
             "file": "src/stories/user.ts",
@@ -226,6 +366,179 @@
             }
         },
         {
+            "name": "DropdownComponent",
+            "id": "component-DropdownComponent-70e23996430e5463419418abce2843faf758eef801fbec7d13ac0b01640867f87b61619b405bdead52dbcaf33bd5c3f52cb1d917f1ad5912d5850badefdb84e3",
+            "file": "src/stories/Planexa/dropdown.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-dropdown",
+            "styleUrls": [
+                "./dropdown.component.css"
+            ],
+            "styles": [],
+            "template": "<div class=\"dropdown-container\" *ngIf=\"isOpen\">\n  <div class=\"dropdown-list\">\n    <div\n      *ngFor=\"let item of items; trackBy: trackByFn\"\n      class=\"dropdown-item\"\n      (click)=\"selectItem(item)\"\n      [class.selected]=\"item === selectedItem\">\n      {{ item }}\n    </div>\n  </div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "isOpen",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉtat ouvert/fermé",
+                    "description": "<p>État ouvert/fermé</p>\n",
+                    "line": 30,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "items",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nListe des éléments à afficher",
+                    "description": "<p>Liste des éléments à afficher</p>\n",
+                    "line": 26,
+                    "type": "string[]",
+                    "decorators": []
+                },
+                {
+                    "name": "selectedItem",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉlément sélectionné",
+                    "description": "<p>Élément sélectionné</p>\n",
+                    "line": 34,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "closeDropdown",
+                    "defaultValue": "new EventEmitter<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉvénement pour fermer le dropdown",
+                    "description": "<p>Événement pour fermer le dropdown</p>\n",
+                    "line": 42,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "itemSelected",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉvénement quand un élément est sélectionné",
+                    "description": "<p>Événement quand un élément est sélectionné</p>\n",
+                    "line": 38,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "selectItem",
+                    "args": [
+                        {
+                            "name": "item",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 44,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "item",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "trackByFn",
+                    "args": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "item",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 50,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "item",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-dropdown',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"dropdown-container\" *ngIf=\"isOpen\">\n      <div class=\"dropdown-list\">\n        <div \n          *ngFor=\"let item of items; trackBy: trackByFn\" \n          class=\"dropdown-item\"\n          (click)=\"selectItem(item)\"\n          [class.selected]=\"item === selectedItem\">\n          {{ item }}\n        </div>\n      </div>\n    </div>\n  `,\n  styleUrls: ['./dropdown.component.css'],\n})\nexport class DropdownComponent {\n  /** Liste des éléments à afficher */\n  @Input()\n  items: string[] = [];\n\n  /** État ouvert/fermé */\n  @Input()\n  isOpen: boolean = false;\n\n  /** Élément sélectionné */\n  @Input()\n  selectedItem?: string;\n\n  /** Événement quand un élément est sélectionné */\n  @Output()\n  itemSelected = new EventEmitter<string>();\n\n  /** Événement pour fermer le dropdown */\n  @Output()\n  closeDropdown = new EventEmitter<void>();\n\n  selectItem(item: string): void {\n    this.selectedItem = item;\n    this.itemSelected.emit(item);\n    this.closeDropdown.emit();\n  }\n\n  trackByFn(index: number, item: string): string {\n    return item;\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".dropdown-container {\n  position: absolute;\n  top: 48px; /* Position juste en dessous de l'input field (44px hauteur + 4px marge) */\n  left: 0;\n  right: 0;\n  z-index: 1000;\n}\n\n.dropdown-list {\n  background: white;\n  border: 1px solid #D1D5DB;\n  border-radius: 8px;\n  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);\n  max-height: 200px;\n  overflow-y: auto;\n}\n\n.dropdown-item {\n  padding: 12px 16px;\n  cursor: pointer;\n  font-size: 14px;\n  color: #374151;\n  border-bottom: 1px solid #F3F4F6;\n  transition: background-color 0.2s ease;\n}\n\n.dropdown-item:last-child {\n  border-bottom: none;\n}\n\n.dropdown-item:hover {\n  background-color: #F9FAFB;\n}\n\n.dropdown-item.selected {\n  background-color: #EBF8FF;\n  color: #1D4ED8;\n  font-weight: 500;\n}\n\n.dropdown-item.selected:hover {\n  background-color: #DBEAFE;\n}\n",
+                    "styleUrl": "./dropdown.component.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": []
+        },
+        {
             "name": "HeaderComponent",
             "id": "component-HeaderComponent-48b9abe37706bc42f20cfa97ed9f943678344ea7d254c0c82183c657750c2191b43486fe730c778627b2ea6aa0e2f33a7abcf3ce08b68ad18b062ad99ea97acb",
             "file": "src/stories/header.component.ts",
@@ -306,6 +619,371 @@
                 {
                     "data": ".storybook-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n}\n\n.storybook-header svg {\n  display: inline-block;\n  vertical-align: top;\n}\n\n.storybook-header h1 {\n  display: inline-block;\n  vertical-align: top;\n  margin: 6px 0 6px 10px;\n  font-weight: 700;\n  font-size: 20px;\n  line-height: 1;\n}\n\n.storybook-header button + button {\n  margin-left: 10px;\n}\n\n.storybook-header .welcome {\n  margin-right: 10px;\n  color: #333;\n  font-size: 14px;\n}\n",
                     "styleUrl": "./header.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "InputDropdownComponent",
+            "id": "component-InputDropdownComponent-9551b52bf43dffd1d2eb99b364d13b5eab76f4003ca3ebb63c68f05c5b2b0b6abdb8c4cd565e4d234f751a091474799dcdb281de72c166ba146c12a88d82f6d5",
+            "file": "src/stories/Planexa/input-dropdown.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-input-dropdown",
+            "styleUrls": [],
+            "styles": [
+                "\n    .input-dropdown-wrapper {\n      width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 8px;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  "
+            ],
+            "template": "<div class=\"input-dropdown-wrapper\">\n  <!-- Label -->\n  <label *ngIf=\"label\" class=\"input-label\">{{ label }}</label>\n\n  <!-- Input field avec dropdown positionné juste en dessous -->\n  <div class=\"input-field-container\">\n    <storybook-input-field\n      [label]=\"''\"\n      [placeholder]=\"placeholder\"\n      [supportingText]=\"''\"\n      [value]=\"selectedValue\"\n      [rightIcon]=\"true\"\n      [leftIcon]=\"leftIcon\"\n      (dropdownClick)=\"toggleDropdown()\"\n    >\n    </storybook-input-field>\n\n    <storybook-dropdown\n      [isOpen]=\"dropdownOpen\"\n      [items]=\"options\"\n      [selectedItem]=\"selectedValue\"\n      (itemSelected)=\"onItemSelected($event)\"\n      (closeDropdown)=\"closeDropdown()\"\n    >\n    </storybook-dropdown>\n  </div>\n\n  <!-- Supporting text en bas -->\n  <p *ngIf=\"supportingText\" class=\"supporting-text\">{{ supportingText }}</p>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "label",
+                    "defaultValue": "'Select option'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nLabel du champ",
+                    "description": "<p>Label du champ</p>\n",
+                    "line": 73,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "leftIcon",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nAfficher l'icône de gauche",
+                    "description": "<p>Afficher l&#39;icône de gauche</p>\n",
+                    "line": 89,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "options",
+                    "defaultValue": "['Option 1', 'Option 2', 'Option 3', 'Option 4']",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nOptions du dropdown",
+                    "description": "<p>Options du dropdown</p>\n",
+                    "line": 85,
+                    "type": "string[]",
+                    "decorators": []
+                },
+                {
+                    "name": "placeholder",
+                    "defaultValue": "'Choose an option'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nPlaceholder",
+                    "description": "<p>Placeholder</p>\n",
+                    "line": 77,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "selectedValue",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nValeur sélectionnée",
+                    "description": "<p>Valeur sélectionnée</p>\n",
+                    "line": 93,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "supportingText",
+                    "defaultValue": "'Click the arrow to expand'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nTexte de support",
+                    "description": "<p>Texte de support</p>\n",
+                    "line": 81,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "selectionChange",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉvénement de sélection",
+                    "description": "<p>Événement de sélection</p>\n",
+                    "line": 100,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "dropdownOpen",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "<p>État du dropdown</p>\n",
+                    "line": 96,
+                    "rawdescription": "\nÉtat du dropdown"
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "closeDropdown",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 107,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onItemSelected",
+                    "args": [
+                        {
+                            "name": "item",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 111,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "item",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "toggleDropdown",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 102,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "PlaceholderComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "DropdownComponent",
+                    "type": "component"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { PlaceholderComponent } from './placeholder.component';\nimport { DropdownComponent } from './dropdown.component';\n\n@Component({\n  selector: 'storybook-input-dropdown',\n  standalone: true,\n  imports: [CommonModule, PlaceholderComponent, DropdownComponent],\n  template: `\n    <div class=\"input-dropdown-wrapper\">\n      <!-- Label -->\n      <label *ngIf=\"label\" class=\"input-label\">{{ label }}</label>\n      \n      <!-- Input field avec dropdown positionné juste en dessous -->\n      <div class=\"input-field-container\">\n        <storybook-input-field\n          [label]=\"''\"\n          [placeholder]=\"placeholder\"\n          [supportingText]=\"''\"\n          [value]=\"selectedValue\"\n          [rightIcon]=\"true\"\n          [leftIcon]=\"leftIcon\"\n          (dropdownClick)=\"toggleDropdown()\"\n        >\n        </storybook-input-field>\n        \n        <storybook-dropdown\n          [isOpen]=\"dropdownOpen\"\n          [items]=\"options\"\n          [selectedItem]=\"selectedValue\"\n          (itemSelected)=\"onItemSelected($event)\"\n          (closeDropdown)=\"closeDropdown()\"\n        >\n        </storybook-dropdown>\n      </div>\n      \n      <!-- Supporting text en bas -->\n      <p *ngIf=\"supportingText\" class=\"supporting-text\">{{ supportingText }}</p>\n    </div>\n  `,\n  styles: [`\n    .input-dropdown-wrapper {\n      width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 8px;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  `],\n})\nexport class InputDropdownComponent {\n  /** Label du champ */\n  @Input()\n  label: string = 'Select option';\n\n  /** Placeholder */\n  @Input()\n  placeholder: string = 'Choose an option';\n\n  /** Texte de support */\n  @Input()\n  supportingText: string = 'Click the arrow to expand';\n\n  /** Options du dropdown */\n  @Input()\n  options: string[] = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];\n\n  /** Afficher l'icône de gauche */\n  @Input()\n  leftIcon: boolean = true;\n\n  /** Valeur sélectionnée */\n  @Input()\n  selectedValue: string = '';\n\n  /** État du dropdown */\n  dropdownOpen: boolean = false;\n\n  /** Événement de sélection */\n  @Output()\n  selectionChange = new EventEmitter<string>();\n\n  toggleDropdown(): void {\n    this.dropdownOpen = !this.dropdownOpen;\n    console.log('Dropdown toggled:', this.dropdownOpen); // Debug\n  }\n\n  closeDropdown(): void {\n    this.dropdownOpen = false;\n  }\n\n  onItemSelected(item: string): void {\n    this.selectedValue = item;\n    this.selectionChange.emit(item);\n    console.log('Item selected:', item); // Debug\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n    .input-dropdown-wrapper {\n      width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 8px;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  \n",
+            "extends": []
+        },
+        {
+            "name": "NavigationBarComponent",
+            "id": "component-NavigationBarComponent-12d68265e03b3d6ecf2227ff2f2de12b2b6a2a9c30463857bcc2b6ed09f0edd75becb7112481f869625b31a2f658936c6040db469b50b2ca18e5300220d3065c",
+            "file": "src/stories/Planexa/navigation-bar.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-navigation-bar",
+            "styleUrls": [
+                "./navigation-bar.component.css"
+            ],
+            "styles": [],
+            "template": "<div class=\"navigation-bar\">\n  <!-- Section gauche : Titre et navigation -->\n  <div class=\"left-section\">\n    <h2 class=\"title\">{{ config.title }}</h2>\n    <div class=\"nav-buttons\">\n      <button\n        class=\"nav-button nav-button--left\"\n        (click)=\"onPreviousClick()\"\n        [attr.aria-label]=\"'Période précédente'\"\n      >\n        <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n          <path d=\"M10.75 12.25L10.131 11.6312L6.894 8.375H14.5V7.125H6.894L10.131 3.8687L10.75 3.25L6.5 7L10.75 12.25Z\" fill=\"currentColor\"/>\n        </svg>\n      </button>\n      <button\n        class=\"nav-button nav-button--right\"\n        (click)=\"onNextClick()\"\n        [attr.aria-label]=\"'Période suivante'\"\n      >\n        <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n          <path d=\"M5.25 3.75L5.869 4.3687L9.106 7.625H1.5V8.875H9.106L5.869 12.1312L5.25 12.75L9.5 9L5.25 3.75Z\" fill=\"currentColor\"/>\n        </svg>\n      </button>\n    </div>\n  </div>\n\n  <!-- Section centre : Contrôle segmenté -->\n  <div class=\"center-section\">\n    <storybook-segmented-control\n      [tabs]=\"config.viewModes\"\n      [activeTabId]=\"config.activeViewMode\"\n      [width]=\"300\"\n      (tabChange)=\"onViewModeChange($event)\"\n    ></storybook-segmented-control>\n  </div>\n\n  <!-- Section droite : Boutons d'action -->\n  <div class=\"right-section\">\n    <button\n      *ngIf=\"config.showTodayButton\"\n      class=\"action-button action-button--secondary\"\n      (click)=\"onTodayClick()\"\n    >\n      {{ config.todayButtonText || 'Aujourd'hui' }}\n    </button>\n\n    <button\n      *ngIf=\"config.showPrimaryButton\"\n      class=\"action-button action-button--primary\"\n      (click)=\"onPrimaryButtonClick()\"\n    >\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" class=\"button-icon\">\n        <circle cx=\"8\" cy=\"8\" r=\"7.25\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n        <path d=\"M8 4.5V11.5M4.5 8H11.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>\n      </svg>\n      {{ config.primaryButtonText || 'Nouveau RDV' }}\n    </button>\n  </div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "config",
+                    "defaultValue": "{\n    title: 'Juillet 2025',\n    viewModes: [\n      { id: 'month', label: 'Mois', icon: false },\n      { id: 'week', label: 'Semaine', icon: false },\n      { id: 'day', label: 'Jour', icon: false }\n    ],\n    activeViewMode: 'month',\n    showTodayButton: true,\n    todayButtonText: 'Aujourd\\'hui',\n    primaryButtonText: 'Nouveau RDV',\n    showPrimaryButton: true\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nConfiguration de la barre de navigation",
+                    "description": "<p>Configuration de la barre de navigation</p>\n",
+                    "line": 85,
+                    "type": "NavigationBarConfig",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "nextClick",
+                    "defaultValue": "new EventEmitter<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 104,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "previousClick",
+                    "defaultValue": "new EventEmitter<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉvénements",
+                    "description": "<p>Événements</p>\n",
+                    "line": 101,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "primaryButtonClick",
+                    "defaultValue": "new EventEmitter<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 113,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "todayClick",
+                    "defaultValue": "new EventEmitter<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 110,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "viewModeChange",
+                    "defaultValue": "new EventEmitter<TabItem>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 107,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "onNextClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 119,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onPreviousClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 115,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onPrimaryButtonClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 132,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onTodayClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 128,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onViewModeChange",
+                    "args": [
+                        {
+                            "name": "tab",
+                            "type": "TabItem",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 123,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "tab",
+                            "type": "TabItem",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "SegmentedControlComponent",
+                    "type": "component"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\n\nexport interface NavigationBarConfig {\n  title: string;\n  viewModes: TabItem[];\n  activeViewMode: string;\n  showTodayButton?: boolean;\n  todayButtonText?: string;\n  primaryButtonText?: string;\n  showPrimaryButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-navigation-bar',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent],\n  template: `\n    <div class=\"navigation-bar\">\n      <!-- Section gauche : Titre et navigation -->\n      <div class=\"left-section\">\n        <h2 class=\"title\">{{ config.title }}</h2>\n        <div class=\"nav-buttons\">\n          <button \n            class=\"nav-button nav-button--left\" \n            (click)=\"onPreviousClick()\"\n            [attr.aria-label]=\"'Période précédente'\"\n          >\n            <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n              <path d=\"M10.75 12.25L10.131 11.6312L6.894 8.375H14.5V7.125H6.894L10.131 3.8687L10.75 3.25L6.5 7L10.75 12.25Z\" fill=\"currentColor\"/>\n            </svg>\n          </button>\n          <button \n            class=\"nav-button nav-button--right\" \n            (click)=\"onNextClick()\"\n            [attr.aria-label]=\"'Période suivante'\"\n          >\n            <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n              <path d=\"M5.25 3.75L5.869 4.3687L9.106 7.625H1.5V8.875H9.106L5.869 12.1312L5.25 12.75L9.5 9L5.25 3.75Z\" fill=\"currentColor\"/>\n            </svg>\n          </button>\n        </div>\n      </div>\n\n      <!-- Section centre : Contrôle segmenté -->\n      <div class=\"center-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.viewModes\"\n          [activeTabId]=\"config.activeViewMode\"\n          [width]=\"300\"\n          (tabChange)=\"onViewModeChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- Section droite : Boutons d'action -->\n      <div class=\"right-section\">\n        <button \n          *ngIf=\"config.showTodayButton\" \n          class=\"action-button action-button--secondary\"\n          (click)=\"onTodayClick()\"\n        >\n          {{ config.todayButtonText || 'Aujourd\\'hui' }}\n        </button>\n        \n        <button \n          *ngIf=\"config.showPrimaryButton\" \n          class=\"action-button action-button--primary\"\n          (click)=\"onPrimaryButtonClick()\"\n        >\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" class=\"button-icon\">\n            <circle cx=\"8\" cy=\"8\" r=\"7.25\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n            <path d=\"M8 4.5V11.5M4.5 8H11.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>\n          </svg>\n          {{ config.primaryButtonText || 'Nouveau RDV' }}\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['./navigation-bar.component.css'],\n})\nexport class NavigationBarComponent {\n  /** Configuration de la barre de navigation */\n  @Input()\n  config: NavigationBarConfig = {\n    title: 'Juillet 2025',\n    viewModes: [\n      { id: 'month', label: 'Mois', icon: false },\n      { id: 'week', label: 'Semaine', icon: false },\n      { id: 'day', label: 'Jour', icon: false }\n    ],\n    activeViewMode: 'month',\n    showTodayButton: true,\n    todayButtonText: 'Aujourd\\'hui',\n    primaryButtonText: 'Nouveau RDV',\n    showPrimaryButton: true\n  };\n\n  /** Événements */\n  @Output()\n  previousClick = new EventEmitter<void>();\n\n  @Output()\n  nextClick = new EventEmitter<void>();\n\n  @Output()\n  viewModeChange = new EventEmitter<TabItem>();\n\n  @Output()\n  todayClick = new EventEmitter<void>();\n\n  @Output()\n  primaryButtonClick = new EventEmitter<void>();\n\n  onPreviousClick(): void {\n    this.previousClick.emit();\n  }\n\n  onNextClick(): void {\n    this.nextClick.emit();\n  }\n\n  onViewModeChange(tab: TabItem): void {\n    this.config.activeViewMode = tab.id;\n    this.viewModeChange.emit(tab);\n  }\n\n  onTodayClick(): void {\n    this.todayClick.emit();\n  }\n\n  onPrimaryButtonClick(): void {\n    this.primaryButtonClick.emit();\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".navigation-bar {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 0;\n  background: white;\n  border-bottom: 1px solid #E5E5E5;\n  min-height: 68px;\n  font-family: system-ui, -apple-system, sans-serif;\n}\n\n/* Section gauche */\n.left-section {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n}\n\n.title {\n  margin: 0;\n  font-size: 16px;\n  font-weight: 500;\n  color: #334155;\n  line-height: 1.5;\n}\n\n.nav-buttons {\n  display: flex;\n  gap: 8px;\n}\n\n.nav-button {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  border: none;\n  border-radius: 8px;\n  background: #F1F5F9;\n  color: #334155;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n\n.nav-button:hover {\n  background: #E2E8F0;\n  transform: translateY(-1px);\n}\n\n.nav-button:active {\n  transform: translateY(0);\n  background: #CBD5E1;\n}\n\n.nav-button:focus {\n  outline: 2px solid #4338CA;\n  outline-offset: 2px;\n}\n\n/* Section centre */\n.center-section {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n  max-width: 400px;\n  margin: 0 auto;\n}\n\n/* Section droite */\n.right-section {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n\n.action-button {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 16px;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  line-height: 1.4;\n  white-space: nowrap;\n}\n\n.action-button--secondary {\n  background: #E0E7FF;\n  color: #4338CA;\n  border: 1px solid transparent;\n}\n\n.action-button--secondary:hover {\n  background: #C7D2FE;\n  transform: translateY(-1px);\n}\n\n.action-button--secondary:active {\n  transform: translateY(0);\n  background: #A5B4FC;\n}\n\n.action-button--primary {\n  background: #4338CA;\n  color: white;\n  border: 1px solid transparent;\n}\n\n.action-button--primary:hover {\n  background: #3730A3;\n  transform: translateY(-1px);\n}\n\n.action-button--primary:active {\n  transform: translateY(0);\n  background: #312E81;\n}\n\n.action-button:focus {\n  outline: 2px solid #4338CA;\n  outline-offset: 2px;\n}\n\n.button-icon {\n  width: 16px;\n  height: 16px;\n  flex-shrink: 0;\n}\n\n/* Responsive */\n@media (max-width: 768px) {\n  .navigation-bar {\n    flex-direction: column;\n    gap: 16px;\n    padding: 16px;\n  }\n\n  .left-section, .right-section {\n    justify-content: center;\n  }\n\n  .center-section {\n    order: -1;\n    max-width: none;\n    width: 100%;\n  }\n\n  .title {\n    font-size: 18px;\n  }\n}\n\n@media (max-width: 480px) {\n  .right-section {\n    flex-direction: column;\n    width: 100%;\n  }\n\n  .action-button {\n    width: 100%;\n    justify-content: center;\n  }\n}\n",
+                    "styleUrl": "./navigation-bar.component.css"
                 }
             ],
             "stylesData": "",
@@ -407,100 +1085,256 @@
         },
         {
             "name": "PlaceholderComponent",
-            "id": "component-PlaceholderComponent-c2f9d2bd63b6bb1117b09477eb102a1cc3265abf1ac83ad81b6de98fd9ce80adccd8410fdfca582e8cb81ea34c17c280d9ff400d63d44f0542bef3516fb82ac4",
-            "file": "src/stories/placeholder.component.ts",
+            "id": "component-PlaceholderComponent-50485a9345d918276238f2c9130553d14453c078801fecc71b2ff32069e0c646825055067e716f0f0845db2c1e54b79818ca3a4c7f8b004a55f4ff095c1ed637",
+            "file": "src/stories/Planexa/placeholder.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
             "providers": [],
-            "selector": "storybook-placeholder",
+            "selector": "storybook-input-field",
             "styleUrls": [
                 "./placeholder.component.css"
             ],
             "styles": [],
-            "template": "<div class=\"placeholder-container\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n  <div class=\"placeholder-content\">\n    <p *ngIf=\"title\" class=\"placeholder-title\">{{ title }}</p>\n    <p *ngIf=\"subtitle\" class=\"placeholder-subtitle\">{{ subtitle }}</p>\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+            "template": "<div class=\"input-field-container\">\n  <!-- Label -->\n  <label *ngIf=\"label\" class=\"input-label\" [for]=\"inputId\">\n    {{ label }}\n  </label>\n\n  <!-- Input container avec icônes -->\n  <div class=\"input-wrapper\">\n    <!-- Icône de gauche -->\n    <div *ngIf=\"leftIcon\" class=\"input-icon left-icon\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8Z\" fill=\"#6B7280\"/>\n        <path d=\"M8 9C5.23858 9 3 11.2386 3 14H13C13 11.2386 10.7614 9 8 9Z\" fill=\"#6B7280\"/>\n      </svg>\n    </div>\n\n    <!-- Input field -->\n    <input\n      [id]=\"inputId\"\n      class=\"input-field\"\n      [type]=\"type\"\n      [placeholder]=\"placeholder\"\n      [value]=\"value\"\n      [disabled]=\"disabled\"\n      (input)=\"onInput($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    />\n\n    <!-- Icône de droite (dropdown) -->\n    <div *ngIf=\"rightIcon\" class=\"input-icon right-icon\" (click)=\"onDropdownClick()\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M4 6L8 10L12 6\" stroke=\"#6B7280\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      </svg>\n    </div>\n  </div>\n\n  <!-- Supporting text -->\n  <p *ngIf=\"supportingText\" class=\"supporting-text\">\n    {{ supportingText }}\n  </p>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
                 {
-                    "name": "height",
-                    "defaultValue": "88",
+                    "name": "disabled",
+                    "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "rawdescription": "\nHauteur du composant en pixels",
-                    "description": "<p>Hauteur du composant en pixels</p>\n",
-                    "line": 34,
-                    "type": "number",
+                    "rawdescription": "\nÉtat désactivé",
+                    "description": "<p>État désactivé</p>\n",
+                    "line": 77,
+                    "type": "boolean",
                     "decorators": []
                 },
                 {
-                    "name": "left",
+                    "name": "inputId",
+                    "defaultValue": "'input-' + Math.random().toString(36).substr(2, 9)",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "rawdescription": "\nPosition left (si absolute)",
-                    "description": "<p>Position left (si absolute)</p>\n",
-                    "line": 42,
-                    "type": "number",
-                    "decorators": []
-                },
-                {
-                    "name": "position",
-                    "defaultValue": "'relative'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "\nPosition absolue ou relative",
-                    "description": "<p>Position absolue ou relative</p>\n",
-                    "line": 38,
-                    "type": "\"absolute\" | \"relative\"",
-                    "decorators": []
-                },
-                {
-                    "name": "subtitle",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "\nSous-titre du placeholder",
-                    "description": "<p>Sous-titre du placeholder</p>\n",
-                    "line": 26,
+                    "rawdescription": "\nID unique pour l'input",
+                    "description": "<p>ID unique pour l&#39;input</p>\n",
+                    "line": 89,
                     "type": "string",
                     "decorators": []
                 },
                 {
-                    "name": "title",
+                    "name": "label",
+                    "defaultValue": "'Input title'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "rawdescription": "\nTitre du placeholder",
-                    "description": "<p>Titre du placeholder</p>\n",
-                    "line": 22,
+                    "rawdescription": "\nLabel au-dessus du champ",
+                    "description": "<p>Label au-dessus du champ</p>\n",
+                    "line": 57,
                     "type": "string",
                     "decorators": []
                 },
                 {
-                    "name": "top",
+                    "name": "leftIcon",
+                    "defaultValue": "true",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "rawdescription": "\nPosition top (si absolute)",
-                    "description": "<p>Position top (si absolute)</p>\n",
-                    "line": 46,
-                    "type": "number",
+                    "rawdescription": "\nAfficher l'icône de gauche",
+                    "description": "<p>Afficher l&#39;icône de gauche</p>\n",
+                    "line": 81,
+                    "type": "boolean",
                     "decorators": []
                 },
                 {
-                    "name": "width",
-                    "defaultValue": "368",
+                    "name": "placeholder",
+                    "defaultValue": "'Placeholder'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "rawdescription": "\nLargeur du composant en pixels",
-                    "description": "<p>Largeur du composant en pixels</p>\n",
-                    "line": 30,
-                    "type": "number",
+                    "rawdescription": "\nTexte placeholder dans l'input",
+                    "description": "<p>Texte placeholder dans l&#39;input</p>\n",
+                    "line": 61,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "rightIcon",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nAfficher l'icône de droite (dropdown)",
+                    "description": "<p>Afficher l&#39;icône de droite (dropdown)</p>\n",
+                    "line": 85,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "supportingText",
+                    "defaultValue": "'Supporting text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nTexte de support en dessous",
+                    "description": "<p>Texte de support en dessous</p>\n",
+                    "line": 65,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nType d'input",
+                    "description": "<p>Type d&#39;input</p>\n",
+                    "line": 73,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nValeur du champ",
+                    "description": "<p>Valeur du champ</p>\n",
+                    "line": 69,
+                    "type": "string",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "dropdownClick",
+                    "defaultValue": "new EventEmitter<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 102,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "inputBlur",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 99,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "inputFocus",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 96,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "valueChange",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉvénements",
+                    "description": "<p>Événements</p>\n",
+                    "line": 93,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "onBlur",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 114,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onDropdownClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 118,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onFocus",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 110,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onInput",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 104,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -515,12 +1349,185 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'storybook-placeholder',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"placeholder-container\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n      <div class=\"placeholder-content\">\n        <p *ngIf=\"title\" class=\"placeholder-title\">{{ title }}</p>\n        <p *ngIf=\"subtitle\" class=\"placeholder-subtitle\">{{ subtitle }}</p>\n        <ng-content></ng-content>\n      </div>\n    </div>\n  `,\n  styleUrls: ['./placeholder.component.css'],\n})\nexport class PlaceholderComponent {\n  /** Titre du placeholder */\n  @Input()\n  title?: string;\n\n  /** Sous-titre du placeholder */\n  @Input() \n  subtitle?: string;\n\n  /** Largeur du composant en pixels */\n  @Input()\n  width: number = 368;\n\n  /** Hauteur du composant en pixels */\n  @Input()\n  height: number = 88;\n\n  /** Position absolue ou relative */\n  @Input()\n  position: 'absolute' | 'relative' = 'relative';\n\n  /** Position left (si absolute) */\n  @Input()\n  left?: number;\n\n  /** Position top (si absolute) */\n  @Input()\n  top?: number;\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-input-field',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"input-field-container\">\n      <!-- Label -->\n      <label *ngIf=\"label\" class=\"input-label\" [for]=\"inputId\">\n        {{ label }}\n      </label>\n      \n      <!-- Input container avec icônes -->\n      <div class=\"input-wrapper\">\n        <!-- Icône de gauche -->\n        <div *ngIf=\"leftIcon\" class=\"input-icon left-icon\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8Z\" fill=\"#6B7280\"/>\n            <path d=\"M8 9C5.23858 9 3 11.2386 3 14H13C13 11.2386 10.7614 9 8 9Z\" fill=\"#6B7280\"/>\n          </svg>\n        </div>\n        \n        <!-- Input field -->\n        <input \n          [id]=\"inputId\"\n          class=\"input-field\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          [disabled]=\"disabled\"\n          (input)=\"onInput($event)\"\n          (focus)=\"onFocus($event)\"\n          (blur)=\"onBlur($event)\"\n        />\n        \n        <!-- Icône de droite (dropdown) -->\n        <div *ngIf=\"rightIcon\" class=\"input-icon right-icon\" (click)=\"onDropdownClick()\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M4 6L8 10L12 6\" stroke=\"#6B7280\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          </svg>\n        </div>\n      </div>\n      \n      <!-- Supporting text -->\n      <p *ngIf=\"supportingText\" class=\"supporting-text\">\n        {{ supportingText }}\n      </p>\n    </div>\n  `,\n  styleUrls: ['./placeholder.component.css'],\n})\nexport class PlaceholderComponent {\n  /** Label au-dessus du champ */\n  @Input()\n  label: string = 'Input title';\n\n  /** Texte placeholder dans l'input */\n  @Input()\n  placeholder: string = 'Placeholder';\n\n  /** Texte de support en dessous */\n  @Input()\n  supportingText: string = 'Supporting text';\n\n  /** Valeur du champ */\n  @Input()\n  value: string = '';\n\n  /** Type d'input */\n  @Input()\n  type: string = 'text';\n\n  /** État désactivé */\n  @Input()\n  disabled: boolean = false;\n\n  /** Afficher l'icône de gauche */\n  @Input()\n  leftIcon: boolean = true;\n\n  /** Afficher l'icône de droite (dropdown) */\n  @Input()\n  rightIcon: boolean = true;\n\n  /** ID unique pour l'input */\n  @Input()\n  inputId: string = 'input-' + Math.random().toString(36).substr(2, 9);\n\n  /** Événements */\n  @Output()\n  valueChange = new EventEmitter<string>();\n\n  @Output()\n  inputFocus = new EventEmitter<Event>();\n\n  @Output()\n  inputBlur = new EventEmitter<Event>();\n\n  @Output()\n  dropdownClick = new EventEmitter<void>();\n\n  onInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    this.value = target.value;\n    this.valueChange.emit(this.value);\n  }\n\n  onFocus(event: Event): void {\n    this.inputFocus.emit(event);\n  }\n\n  onBlur(event: Event): void {\n    this.inputBlur.emit(event);\n  }\n\n  onDropdownClick(): void {\n    this.dropdownClick.emit();\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "/* Usage=Frame 7 - Composant Placeholder */\n\n.placeholder-container {\n  /* Auto layout */\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  padding: 0px;\n  gap: 8px;\n  \n  /* Position par défaut relative, mais peut être absolute */\n  position: relative;\n  \n  /* Dimensions par défaut (peuvent être surchargées par les @Input) */\n  width: 368px;\n  height: 88px;\n  \n  /* Bordure pour visualiser le composant en développement */\n  border: 1px dashed #e2e8f0;\n  border-radius: 4px;\n  \n  /* Couleur de fond légère pour la visibilité */\n  background-color: #f8fafc;\n}\n\n.placeholder-container.absolute {\n  position: absolute;\n}\n\n.placeholder-content {\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n  width: 100%;\n  padding: 12px;\n}\n\n.placeholder-title {\n  margin: 0;\n  font-size: 14px;\n  font-weight: 600;\n  color: #374151;\n  line-height: 1.2;\n}\n\n.placeholder-subtitle {\n  margin: 0;\n  font-size: 12px;\n  font-weight: 400;\n  color: #6b7280;\n  line-height: 1.3;\n}\n\n/* États hover pour l'interaction */\n.placeholder-container:hover {\n  border-color: #3b82f6;\n  background-color: #f0f9ff;\n}\n\n/* Variantes de taille */\n.placeholder-container.small {\n  width: 200px;\n  height: 60px;\n  gap: 4px;\n}\n\n.placeholder-container.large {\n  width: 500px;\n  height: 120px;\n  gap: 12px;\n}\n",
+                    "data": "/* Input Field Component - Basé sur le design Figma */\n\n.input-field-container {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  width: 368px;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n}\n\n/* Label */\n.input-label {\n  font-size: 14px;\n  font-weight: 500;\n  color: #111827;\n  margin: 0;\n  line-height: 1.4;\n}\n\n/* Container de l'input avec icônes */\n.input-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n}\n\n/* Champ input principal */\n.input-field {\n  width: 100%;\n  height: 44px;\n  padding: 12px 40px 12px 40px; /* Espace pour les icônes */\n  border: 1px solid #D1D5DB;\n  border-radius: 8px;\n  font-size: 14px;\n  color: #111827;\n  background-color: #FFFFFF;\n  transition: all 0.2s ease-in-out;\n  outline: none;\n  box-sizing: border-box;\n}\n\n.input-field::placeholder {\n  color: #9CA3AF;\n  font-size: 14px;\n}\n\n/* États de focus */\n.input-field:focus {\n  border-color: #3B82F6;\n  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);\n}\n\n.input-field:hover:not(:focus) {\n  border-color: #9CA3AF;\n}\n\n/* État disabled */\n.input-field:disabled {\n  background-color: #F9FAFB;\n  color: #9CA3AF;\n  cursor: not-allowed;\n}\n\n/* Icônes */\n.input-icon {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 16px;\n  height: 16px;\n  z-index: 1;\n}\n\n.left-icon {\n  left: 12px;\n}\n\n.right-icon {\n  right: 12px;\n  cursor: pointer;\n  transition: opacity 0.2s ease;\n}\n\n.right-icon:hover {\n  opacity: 0.7;\n}\n\n/* Supporting text */\n.supporting-text {\n  font-size: 12px;\n  color: #6B7280;\n  margin: 0;\n  line-height: 1.4;\n}\n\n/* États d'erreur */\n.input-field-container.error .input-field {\n  border-color: #EF4444;\n}\n\n.input-field-container.error .input-field:focus {\n  border-color: #EF4444;\n  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);\n}\n\n.input-field-container.error .supporting-text {\n  color: #EF4444;\n}\n\n/* États de succès */\n.input-field-container.success .input-field {\n  border-color: #10B981;\n}\n\n.input-field-container.success .input-field:focus {\n  border-color: #10B981;\n  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);\n}\n\n.input-field-container.success .supporting-text {\n  color: #10B981;\n}\n\n/* Variantes de taille */\n.input-field-container.small {\n  width: 280px;\n}\n\n.input-field-container.small .input-field {\n  height: 36px;\n  padding: 8px 32px 8px 32px;\n  font-size: 13px;\n}\n\n.input-field-container.large {\n  width: 480px;\n}\n\n.input-field-container.large .input-field {\n  height: 52px;\n  padding: 16px 48px 16px 48px;\n  font-size: 16px;\n}\n",
                     "styleUrl": "./placeholder.component.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "SegmentedControlComponent",
+            "id": "component-SegmentedControlComponent-7978fde189c8389e6653da016a147a6ca0c5f62d9d24ce13eb6bba0b5b583cf24302340d8e20c63797570f6a954316c0f8125d5cc079cc6d951abadcac947c52",
+            "file": "src/stories/Planexa/segmented-control.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-segmented-control",
+            "styleUrls": [
+                "./segmented-control.component.css"
+            ],
+            "styles": [],
+            "template": "<div class=\"segmented-control\" [style.width.px]=\"width\">\n  <div\n    *ngFor=\"let tab of tabs; trackBy: trackByFn; let i = index\"\n    class=\"segment\"\n    [class.active]=\"tab.id === activeTabId\"\n    [class.disabled]=\"tab.disabled\"\n    (click)=\"selectTab(tab)\"\n    [attr.data-testid]=\"'segment-' + tab.id\"\n  >\n    <!-- Icône hexagonale -->\n    <div *ngIf=\"tab.icon !== false\" class=\"segment-icon\">\n      <!-- Icône Calendrier -->\n      <svg *ngIf=\"tab.icon === 'calendar'\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M4 1V3M12 1V3M2 5H14M3 3H13C13.5523 3 14 3.44772 14 4V13C14 13.5523 13.5523 14 13 14H3C2.44772 14 2 13.5523 2 13V4C2 3.44772 2.44772 3 3 3Z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n        <circle cx=\"6\" cy=\"8\" r=\"0.5\" fill=\"currentColor\"/>\n        <circle cx=\"10\" cy=\"8\" r=\"0.5\" fill=\"currentColor\"/>\n        <circle cx=\"6\" cy=\"11\" r=\"0.5\" fill=\"currentColor\"/>\n        <circle cx=\"10\" cy=\"11\" r=\"0.5\" fill=\"currentColor\"/>\n      </svg>\n\n      <!-- Icône Patient -->\n      <svg *ngIf=\"tab.icon === 'patient'\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <circle cx=\"8\" cy=\"4\" r=\"2.5\" stroke=\"currentColor\" stroke-width=\"1.5\" fill=\"none\"/>\n        <path d=\"M3 14C3 11.2386 5.23858 9 8 9C10.7614 9 13 11.2386 13 14\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>\n        <path d=\"M7 12H9M8 11V13\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n      </svg>\n\n      <!-- Icône Hexagonale (original) -->\n      <svg *ngIf=\"tab.icon === 'hexagon' || tab.icon === true\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M8.252 4.0679L2.252 0.567901C2.17554 0.523334 2.08859 0.499756 2 0.499756C1.91141 0.499756 1.82446 0.523334 1.748 0.567901L-4.252 4.0679C-4.32754 4.11196 -4.39013 4.17496 -4.43363 4.25084C-4.47714 4.32672 -4.5 4.41254 -4.5 4.4999V11.4999C-4.5 11.5873 -4.47714 11.6732 -4.43363 11.749C-4.39013 11.8248 -4.32754 11.8879 -4.252 11.9319L1.748 15.4319C1.82446 15.4765 1.91141 15.5001 2 15.5001C2.08859 15.5001 2.17554 15.4765 2.252 15.4319L8.252 11.9319C8.32754 11.8879 8.39013 11.8248 8.43363 11.749C8.47714 11.6732 8.5 11.5873 8.5 11.4999V4.4999C8.5 4.41254 8.47714 4.32672 8.43363 4.25084C8.39013 4.17496 8.32754 4.11196 8.252 4.0679ZM2 1.5789L7.008 4.4999L2 7.4209L-3.008 4.4999L2 1.5789ZM-3.5 5.3699L1.5 8.2864V14.1299L-3.5 11.2129V5.3699ZM2.5 14.1299V8.2869L7.5 5.3704V11.2129L2.5 14.1299Z\" fill=\"currentColor\"/>\n      </svg>\n    </div>\n\n    <!-- Label du segment -->\n    <span class=\"segment-label\">{{ tab.label }}</span>\n  </div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "activeTabId",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nID de l'onglet actif",
+                    "description": "<p>ID de l&#39;onglet actif</p>\n",
+                    "line": 68,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "tabs",
+                    "defaultValue": "[\n    { id: 'segment1', label: 'Calendrier', icon: 'calendar' },\n    { id: 'segment2', label: 'Patient', icon: 'patient' },\n    { id: 'segment3', label: 'Hexagone', icon: 'hexagon' },\n    { id: 'segment4', label: 'Sans icône', icon: false }\n  ]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nListe des onglets",
+                    "description": "<p>Liste des onglets</p>\n",
+                    "line": 59,
+                    "type": "TabItem[]",
+                    "decorators": []
+                },
+                {
+                    "name": "width",
+                    "defaultValue": "850",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nLargeur du composant",
+                    "description": "<p>Largeur du composant</p>\n",
+                    "line": 72,
+                    "type": "number",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "tabChange",
+                    "defaultValue": "new EventEmitter<TabItem>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\nÉvénement de changement d'onglet",
+                    "description": "<p>Événement de changement d&#39;onglet</p>\n",
+                    "line": 76,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 78,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "selectTab",
+                    "args": [
+                        {
+                            "name": "tab",
+                            "type": "TabItem",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 85,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "tab",
+                            "type": "TabItem",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "trackByFn",
+                    "args": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "item",
+                            "type": "TabItem",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 92,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "item",
+                            "type": "TabItem",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\nexport interface TabItem {\n  id: string;\n  label: string;\n  icon?: 'calendar' | 'patient' | 'hexagon' | false;\n  disabled?: boolean;\n}\n\n@Component({\n  selector: 'storybook-segmented-control',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"segmented-control\" [style.width.px]=\"width\">\n      <div \n        *ngFor=\"let tab of tabs; trackBy: trackByFn; let i = index\"\n        class=\"segment\"\n        [class.active]=\"tab.id === activeTabId\"\n        [class.disabled]=\"tab.disabled\"\n        (click)=\"selectTab(tab)\"\n        [attr.data-testid]=\"'segment-' + tab.id\"\n      >\n        <!-- Icône hexagonale -->\n        <div *ngIf=\"tab.icon !== false\" class=\"segment-icon\">\n          <!-- Icône Calendrier -->\n          <svg *ngIf=\"tab.icon === 'calendar'\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M4 1V3M12 1V3M2 5H14M3 3H13C13.5523 3 14 3.44772 14 4V13C14 13.5523 13.5523 14 13 14H3C2.44772 14 2 13.5523 2 13V4C2 3.44772 2.44772 3 3 3Z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            <circle cx=\"6\" cy=\"8\" r=\"0.5\" fill=\"currentColor\"/>\n            <circle cx=\"10\" cy=\"8\" r=\"0.5\" fill=\"currentColor\"/>\n            <circle cx=\"6\" cy=\"11\" r=\"0.5\" fill=\"currentColor\"/>\n            <circle cx=\"10\" cy=\"11\" r=\"0.5\" fill=\"currentColor\"/>\n          </svg>\n          \n          <!-- Icône Patient -->\n          <svg *ngIf=\"tab.icon === 'patient'\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <circle cx=\"8\" cy=\"4\" r=\"2.5\" stroke=\"currentColor\" stroke-width=\"1.5\" fill=\"none\"/>\n            <path d=\"M3 14C3 11.2386 5.23858 9 8 9C10.7614 9 13 11.2386 13 14\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>\n            <path d=\"M7 12H9M8 11V13\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n          </svg>\n          \n          <!-- Icône Hexagonale (original) -->\n          <svg *ngIf=\"tab.icon === 'hexagon' || tab.icon === true\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M8.252 4.0679L2.252 0.567901C2.17554 0.523334 2.08859 0.499756 2 0.499756C1.91141 0.499756 1.82446 0.523334 1.748 0.567901L-4.252 4.0679C-4.32754 4.11196 -4.39013 4.17496 -4.43363 4.25084C-4.47714 4.32672 -4.5 4.41254 -4.5 4.4999V11.4999C-4.5 11.5873 -4.47714 11.6732 -4.43363 11.749C-4.39013 11.8248 -4.32754 11.8879 -4.252 11.9319L1.748 15.4319C1.82446 15.4765 1.91141 15.5001 2 15.5001C2.08859 15.5001 2.17554 15.4765 2.252 15.4319L8.252 11.9319C8.32754 11.8879 8.39013 11.8248 8.43363 11.749C8.47714 11.6732 8.5 11.5873 8.5 11.4999V4.4999C8.5 4.41254 8.47714 4.32672 8.43363 4.25084C8.39013 4.17496 8.32754 4.11196 8.252 4.0679ZM2 1.5789L7.008 4.4999L2 7.4209L-3.008 4.4999L2 1.5789ZM-3.5 5.3699L1.5 8.2864V14.1299L-3.5 11.2129V5.3699ZM2.5 14.1299V8.2869L7.5 5.3704V11.2129L2.5 14.1299Z\" fill=\"currentColor\"/>\n          </svg>\n        </div>\n        \n        <!-- Label du segment -->\n        <span class=\"segment-label\">{{ tab.label }}</span>\n      </div>\n    </div>\n  `,\n  styleUrls: ['./segmented-control.component.css'],\n})\nexport class SegmentedControlComponent {\n  /** Liste des onglets */\n  @Input()\n  tabs: TabItem[] = [\n    { id: 'segment1', label: 'Calendrier', icon: 'calendar' },\n    { id: 'segment2', label: 'Patient', icon: 'patient' },\n    { id: 'segment3', label: 'Hexagone', icon: 'hexagon' },\n    { id: 'segment4', label: 'Sans icône', icon: false }\n  ];\n\n  /** ID de l'onglet actif */\n  @Input()\n  activeTabId?: string;\n\n  /** Largeur du composant */\n  @Input()\n  width: number = 850;\n\n  /** Événement de changement d'onglet */\n  @Output()\n  tabChange = new EventEmitter<TabItem>();\n\n  ngOnInit() {\n    // Sélectionner le premier onglet par défaut si aucun n'est actif\n    if (!this.activeTabId && this.tabs.length > 0) {\n      this.activeTabId = this.tabs[0].id;\n    }\n  }\n\n  selectTab(tab: TabItem): void {\n    if (tab.disabled) return;\n    \n    this.activeTabId = tab.id;\n    this.tabChange.emit(tab);\n  }\n\n  trackByFn(index: number, item: TabItem): string {\n    return item.id;\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "/* Segmented Control Component - Basé sur le SVG fourni */\n\n.segmented-control {\n  display: flex;\n  background: #F8FAFC;\n  border: 1px solid #E5E5E5;\n  border-radius: 28px; /* Coins très arrondis comme dans le SVG */\n  padding: 4px;\n  height: 56px;\n  width: 850px;\n  box-sizing: border-box;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n}\n\n.segment {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 8px;\n  padding: 12px 16px;\n  border-radius: 24px; /* Coins arrondis pour les segments internes */\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n  color: #334155;\n  font-size: 14px;\n  font-weight: 500;\n  user-select: none;\n  position: relative;\n  background: transparent;\n}\n\n.segment:hover:not(.disabled):not(.active) {\n  background: rgba(51, 65, 85, 0.05);\n}\n\n.segment.active {\n  background: #FFFFFF;\n  color: #334155;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);\n  font-weight: 600;\n}\n\n.segment.disabled {\n  color: #94A3B8;\n  cursor: not-allowed;\n  opacity: 0.6;\n}\n\n.segment-icon {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 20px;\n  height: 20px;\n  color: inherit;\n  flex-shrink: 0; /* Empêche la compression de l'icône */\n}\n\n.segment-icon svg {\n  width: 16px;\n  height: 16px;\n  fill: currentColor;\n  display: block; /* Évite les espaces indésirables */\n}\n\n.segment-label {\n  line-height: 1.4;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n/* États de focus pour l'accessibilité */\n.segment:focus {\n  outline: none;\n  box-shadow: 0 0 0 2px #3B82F6, 0 0 0 4px rgba(59, 130, 246, 0.2);\n}\n\n.segment.active:focus {\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06), 0 0 0 2px #3B82F6, 0 0 0 4px rgba(59, 130, 246, 0.2);\n}\n\n/* Variantes de taille */\n.segmented-control.compact {\n  height: 40px;\n  border-radius: 20px;\n}\n\n.segmented-control.compact .segment {\n  padding: 8px 12px;\n  border-radius: 16px;\n  font-size: 13px;\n}\n\n.segmented-control.large {\n  height: 64px;\n  border-radius: 32px;\n}\n\n.segmented-control.large .segment {\n  padding: 16px 20px;\n  border-radius: 28px;\n  font-size: 16px;\n}\n\n/* Animation de transition entre segments actifs */\n.segment {\n  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);\n}\n\n/* Responsive */\n@media (max-width: 768px) {\n  .segmented-control {\n    width: 100%;\n    max-width: 100%;\n  }\n  \n  .segment-label {\n    font-size: 13px;\n  }\n  \n  .segment {\n    padding: 12px 8px;\n    gap: 6px;\n  }\n}\n",
+                    "styleUrl": "./segmented-control.component.css"
                 }
             ],
             "stylesData": "",
@@ -564,7 +1571,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 24,
+        "count": 25,
         "status": "low",
         "files": [
             {
@@ -584,6 +1591,69 @@
                 "name": "App",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Planexa/dropdown.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "DropdownComponent",
+                "coveragePercent": 62,
+                "coverageCount": "5/8",
+                "status": "good"
+            },
+            {
+                "filePath": "src/stories/Planexa/input-dropdown.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InputDropdownComponent",
+                "coveragePercent": 66,
+                "coverageCount": "8/12",
+                "status": "good"
+            },
+            {
+                "filePath": "src/stories/Planexa/navigation-bar.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NavigationBarComponent",
+                "coveragePercent": 16,
+                "coverageCount": "2/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Planexa/navigation-bar.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "NavigationBarConfig",
+                "coveragePercent": 0,
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Planexa/placeholder.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PlaceholderComponent",
+                "coveragePercent": 55,
+                "coverageCount": "10/18",
+                "status": "good"
+            },
+            {
+                "filePath": "src/stories/Planexa/segmented-control.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SegmentedControlComponent",
+                "coveragePercent": 50,
+                "coverageCount": "4/8",
+                "status": "medium"
+            },
+            {
+                "filePath": "src/stories/Planexa/segmented-control.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "TabItem",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
@@ -612,15 +1682,6 @@
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
                 "status": "low"
-            },
-            {
-                "filePath": "src/stories/placeholder.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "PlaceholderComponent",
-                "coveragePercent": 87,
-                "coverageCount": "7/8",
-                "status": "very-good"
             },
             {
                 "filePath": "src/stories/user.ts",
