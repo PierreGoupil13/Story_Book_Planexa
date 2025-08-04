@@ -3,12 +3,12 @@
     "interfaces": [
         {
             "name": "AppHeaderConfig",
-            "id": "interface-AppHeaderConfig-027803ec0ed7f2677512bd2bd47dc2d9c4d18bdae5e258fe9ef06466969af233b53932c00ee2f256a0656d34888c708d80808808d8266d635e6c9fb9f3823725",
+            "id": "interface-AppHeaderConfig-09c2c4225ab680e5897bfbe5892e6258654df6a023ef9c5e9c1decd7be1317bd776ed706d135edc96edd886c6b3d2a4304b6b3ad01ecbcf34a52246edb59ec10",
             "file": "src/stories/Planexa/app-header.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\nimport { InputDropdownComponent } from './input-dropdown.component';\n\nexport interface UserProfile {\n  name: string;\n  role: string;\n  avatar?: string;\n}\n\nexport interface AppHeaderConfig {\n  logo?: {\n    text: string;\n    icon?: string;\n  };\n  navigation: {\n    tabs: TabItem[];\n    activeTabId: string;\n  };\n  user: UserProfile;\n  showSyncButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-app-header',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent, InputDropdownComponent],\n  template: `\n    <header class=\"app-header\">\n      <!-- Logo section -->\n      <div class=\"logo-section\">\n        <div class=\"logo\">\n          <!-- Logo Planexa avec icône -->\n          <div class=\"logo-icon\">\n            <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n              <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              <defs>\n                <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n                  <stop stop-color=\"#6366F1\"/>\n                  <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n                </linearGradient>\n              </defs>\n            </svg>\n          </div>\n          <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n        </div>\n      </div>\n\n      <!-- Navigation section -->\n      <div class=\"navigation-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.navigation.tabs\"\n          [activeTabId]=\"config.navigation.activeTabId\"\n          [width]=\"400\"\n          (tabChange)=\"onNavigationChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- User section -->\n      <div class=\"user-section\">\n        <!-- User profile -->\n        <div class=\"user-profile\" (click)=\"onUserProfileClick()\">\n          <storybook-input-dropdown\n            [label]=\"''\"\n            [placeholder]=\"config.user.name\"\n            [supportingText]=\"config.user.role\"\n            [selectedValue]=\"config.user.name\"\n            [options]=\"getUserOptions()\"\n            [leftIcon]=\"false\"\n            [rightIcon]=\"true\"\n            [showSupportingText]=\"false\"\n            [showBorder]=\"false\"\n            [width]=\"180\"\n            (selectionChange)=\"onUserSelectionChange($event)\">\n          </storybook-input-dropdown>\n        </div>\n      </div>\n    </header>\n  `,\n  styleUrls: ['./app-header.component.css'],\n})\nexport class AppHeaderComponent {\n  /** Configuration du header */\n  @Input()\n  config: AppHeaderConfig = {\n    logo: {\n      text: 'Planexa'\n    },\n    navigation: {\n      tabs: [\n        { id: 'calendar', label: 'Calendrier', icon: 'calendar' },\n        { id: 'patients', label: 'Patients', icon: 'patient' }\n      ],\n      activeTabId: 'calendar'\n    },\n    user: {\n      name: 'Louis Pasteur',\n      role: 'Médecin'\n    },\n    showSyncButton: true\n  };\n\n  /** Événements */\n  @Output()\n  navigationChange = new EventEmitter<TabItem>();\n\n  @Output()\n  syncClick = new EventEmitter<void>();\n\n  @Output()\n  userProfileClick = new EventEmitter<UserProfile>();\n\n  @Output()\n  logoClick = new EventEmitter<void>();\n\n  @Output()\n  userSelectionChange = new EventEmitter<string>();\n\n  onNavigationChange(tab: TabItem): void {\n    this.config.navigation.activeTabId = tab.id;\n    this.navigationChange.emit(tab);\n  }\n\n  onLogoClick(): void {\n    this.logoClick.emit();\n  }\n\n  getInitials(name: string): string {\n    return name\n      .split(' ')\n      .map(word => word.charAt(0))\n      .join('')\n      .toUpperCase()\n      .substring(0, 2);\n  }\n\n  getUserOptions(): string[] {\n    // Options exemple pour le changement d'utilisateur\n    return [\n      this.config.user.name,\n      'Dr. Marie Curie',\n      'Dr. Pierre Dupont',\n      'Déconnexion'\n    ];\n  }\n\n  onUserSelectionChange(selectedUser: string): void {\n    if (selectedUser === 'Déconnexion') {\n      // Gérer la déconnexion\n      this.userSelectionChange.emit('logout');\n    } else {\n      // Changer d'utilisateur\n      this.config.user.name = selectedUser;\n      this.userSelectionChange.emit(selectedUser);\n    }\n  }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\nimport { InputDropdownComponent } from './input-dropdown.component';\n\nexport interface UserProfile {\n  name: string;\n  role: string;\n  avatar?: string;\n}\n\nexport interface AppHeaderConfig {\n  logo?: {\n    text: string;\n    icon?: string;\n  };\n  navigation: {\n    tabs: TabItem[];\n    activeTabId: string;\n  };\n  user: UserProfile;\n  showSyncButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-app-header',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent, InputDropdownComponent],\n  template: `\n    <header class=\"app-header\">\n      <!-- Logo section -->\n      <div class=\"logo-section\">\n        <div class=\"logo\">\n          <!-- Logo Planexa avec icône -->\n          <div class=\"logo-icon\">\n            <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n              <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              <defs>\n                <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n                  <stop stop-color=\"#6366F1\"/>\n                  <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n                </linearGradient>\n              </defs>\n            </svg>\n          </div>\n          <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n        </div>\n      </div>\n\n      <!-- Navigation section -->\n      <div class=\"navigation-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.navigation.tabs\"\n          [activeTabId]=\"config.navigation.activeTabId\"\n          [width]=\"400\"\n          (tabChange)=\"onNavigationChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- User section -->\n      <div class=\"user-section\" (click)=\"onUserProfileClick()\">\n        <!-- User profile -->\n          <storybook-input-dropdown\n            label=\"\"\n            [placeholder]=\"config.user.name\"\n            [selectedValue]=\"config.user.name\"\n            [options]=\"getUserOptions()\"\n            [leftIcon]=\"false\"\n            [rightIcon]=\"true\"\n            [showSupportingText]=\"false\"\n            (selectionChange)=\"onUserSelectionChange($event)\">\n          </storybook-input-dropdown>\n        </div>\n    </header>\n  `,\n  styleUrls: ['./app-header.component.css'],\n})\nexport class AppHeaderComponent {\n  /** Configuration du header */\n  @Input()\n  config: AppHeaderConfig = {\n    logo: {\n      text: 'Planexa'\n    },\n    navigation: {\n      tabs: [\n        { id: 'calendar', label: 'Calendrier', icon: 'calendar' },\n        { id: 'patients', label: 'Patients', icon: 'patient' }\n      ],\n      activeTabId: 'calendar'\n    },\n    user: {\n      name: 'Louis Pasteur',\n      role: 'Médecin'\n    },\n    showSyncButton: true\n  };\n\n  /** Événements */\n  @Output()\n  navigationChange = new EventEmitter<TabItem>();\n\n  @Output()\n  syncClick = new EventEmitter<void>();\n\n  @Output()\n  userProfileClick = new EventEmitter<UserProfile>();\n\n  @Output()\n  logoClick = new EventEmitter<void>();\n\n  @Output()\n  userSelectionChange = new EventEmitter<string>();\n\n  onNavigationChange(tab: TabItem): void {\n    this.config.navigation.activeTabId = tab.id;\n    this.navigationChange.emit(tab);\n  }\n\n  onSyncClick(): void {\n    this.syncClick.emit();\n  }\n\n  onUserProfileClick(): void {\n    this.userProfileClick.emit(this.config.user);\n  }\n\n  onLogoClick(): void {\n    this.logoClick.emit();\n  }\n\n  getInitials(name: string): string {\n    return name\n      .split(' ')\n      .map(word => word.charAt(0))\n      .join('')\n      .toUpperCase()\n      .substring(0, 2);\n  }\n\n  getUserOptions(): string[] {\n    // Options exemple pour le changement d'utilisateur\n    return [\n      this.config.user.name,\n      'Dr. Marie Curie',\n      'Dr. Pierre Dupont',\n      'Déconnexion'\n    ];\n  }\n\n  onUserSelectionChange(selectedUser: string): void {\n    if (selectedUser === 'Déconnexion') {\n      // Gérer la déconnexion\n      this.userSelectionChange.emit('logout');\n    } else {\n      // Changer d'utilisateur\n      this.config.user.name = selectedUser;\n      this.userSelectionChange.emit(selectedUser);\n    }\n  }\n}\n",
             "properties": [
                 {
                     "name": "logo",
@@ -197,38 +197,13 @@
             "extends": []
         },
         {
-            "name": "User",
-            "id": "interface-User-d4821beac0e4a852e513391b7470981c4353fdd95a18628bb68136c8695b489ee15b926e2e5031bc26cf30e1508e0a362c3ee13a06734702b4d15af140e485d5",
-            "file": "src/stories/user.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "export interface User {\n  name: string;\n}\n",
-            "properties": [
-                {
-                    "name": "name",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 2
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 171,
-            "methods": [],
-            "extends": []
-        },
-        {
             "name": "UserProfile",
-            "id": "interface-UserProfile-027803ec0ed7f2677512bd2bd47dc2d9c4d18bdae5e258fe9ef06466969af233b53932c00ee2f256a0656d34888c708d80808808d8266d635e6c9fb9f3823725",
+            "id": "interface-UserProfile-09c2c4225ab680e5897bfbe5892e6258654df6a023ef9c5e9c1decd7be1317bd776ed706d135edc96edd886c6b3d2a4304b6b3ad01ecbcf34a52246edb59ec10",
             "file": "src/stories/Planexa/app-header.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\nimport { InputDropdownComponent } from './input-dropdown.component';\n\nexport interface UserProfile {\n  name: string;\n  role: string;\n  avatar?: string;\n}\n\nexport interface AppHeaderConfig {\n  logo?: {\n    text: string;\n    icon?: string;\n  };\n  navigation: {\n    tabs: TabItem[];\n    activeTabId: string;\n  };\n  user: UserProfile;\n  showSyncButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-app-header',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent, InputDropdownComponent],\n  template: `\n    <header class=\"app-header\">\n      <!-- Logo section -->\n      <div class=\"logo-section\">\n        <div class=\"logo\">\n          <!-- Logo Planexa avec icône -->\n          <div class=\"logo-icon\">\n            <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n              <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              <defs>\n                <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n                  <stop stop-color=\"#6366F1\"/>\n                  <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n                </linearGradient>\n              </defs>\n            </svg>\n          </div>\n          <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n        </div>\n      </div>\n\n      <!-- Navigation section -->\n      <div class=\"navigation-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.navigation.tabs\"\n          [activeTabId]=\"config.navigation.activeTabId\"\n          [width]=\"400\"\n          (tabChange)=\"onNavigationChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- User section -->\n      <div class=\"user-section\">\n        <!-- User profile -->\n        <div class=\"user-profile\" (click)=\"onUserProfileClick()\">\n          <storybook-input-dropdown\n            [label]=\"''\"\n            [placeholder]=\"config.user.name\"\n            [supportingText]=\"config.user.role\"\n            [selectedValue]=\"config.user.name\"\n            [options]=\"getUserOptions()\"\n            [leftIcon]=\"false\"\n            [rightIcon]=\"true\"\n            [showSupportingText]=\"false\"\n            [showBorder]=\"false\"\n            [width]=\"180\"\n            (selectionChange)=\"onUserSelectionChange($event)\">\n          </storybook-input-dropdown>\n        </div>\n      </div>\n    </header>\n  `,\n  styleUrls: ['./app-header.component.css'],\n})\nexport class AppHeaderComponent {\n  /** Configuration du header */\n  @Input()\n  config: AppHeaderConfig = {\n    logo: {\n      text: 'Planexa'\n    },\n    navigation: {\n      tabs: [\n        { id: 'calendar', label: 'Calendrier', icon: 'calendar' },\n        { id: 'patients', label: 'Patients', icon: 'patient' }\n      ],\n      activeTabId: 'calendar'\n    },\n    user: {\n      name: 'Louis Pasteur',\n      role: 'Médecin'\n    },\n    showSyncButton: true\n  };\n\n  /** Événements */\n  @Output()\n  navigationChange = new EventEmitter<TabItem>();\n\n  @Output()\n  syncClick = new EventEmitter<void>();\n\n  @Output()\n  userProfileClick = new EventEmitter<UserProfile>();\n\n  @Output()\n  logoClick = new EventEmitter<void>();\n\n  @Output()\n  userSelectionChange = new EventEmitter<string>();\n\n  onNavigationChange(tab: TabItem): void {\n    this.config.navigation.activeTabId = tab.id;\n    this.navigationChange.emit(tab);\n  }\n\n  onLogoClick(): void {\n    this.logoClick.emit();\n  }\n\n  getInitials(name: string): string {\n    return name\n      .split(' ')\n      .map(word => word.charAt(0))\n      .join('')\n      .toUpperCase()\n      .substring(0, 2);\n  }\n\n  getUserOptions(): string[] {\n    // Options exemple pour le changement d'utilisateur\n    return [\n      this.config.user.name,\n      'Dr. Marie Curie',\n      'Dr. Pierre Dupont',\n      'Déconnexion'\n    ];\n  }\n\n  onUserSelectionChange(selectedUser: string): void {\n    if (selectedUser === 'Déconnexion') {\n      // Gérer la déconnexion\n      this.userSelectionChange.emit('logout');\n    } else {\n      // Changer d'utilisateur\n      this.config.user.name = selectedUser;\n      this.userSelectionChange.emit(selectedUser);\n    }\n  }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\nimport { InputDropdownComponent } from './input-dropdown.component';\n\nexport interface UserProfile {\n  name: string;\n  role: string;\n  avatar?: string;\n}\n\nexport interface AppHeaderConfig {\n  logo?: {\n    text: string;\n    icon?: string;\n  };\n  navigation: {\n    tabs: TabItem[];\n    activeTabId: string;\n  };\n  user: UserProfile;\n  showSyncButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-app-header',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent, InputDropdownComponent],\n  template: `\n    <header class=\"app-header\">\n      <!-- Logo section -->\n      <div class=\"logo-section\">\n        <div class=\"logo\">\n          <!-- Logo Planexa avec icône -->\n          <div class=\"logo-icon\">\n            <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n              <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              <defs>\n                <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n                  <stop stop-color=\"#6366F1\"/>\n                  <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n                </linearGradient>\n              </defs>\n            </svg>\n          </div>\n          <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n        </div>\n      </div>\n\n      <!-- Navigation section -->\n      <div class=\"navigation-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.navigation.tabs\"\n          [activeTabId]=\"config.navigation.activeTabId\"\n          [width]=\"400\"\n          (tabChange)=\"onNavigationChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- User section -->\n      <div class=\"user-section\" (click)=\"onUserProfileClick()\">\n        <!-- User profile -->\n          <storybook-input-dropdown\n            label=\"\"\n            [placeholder]=\"config.user.name\"\n            [selectedValue]=\"config.user.name\"\n            [options]=\"getUserOptions()\"\n            [leftIcon]=\"false\"\n            [rightIcon]=\"true\"\n            [showSupportingText]=\"false\"\n            (selectionChange)=\"onUserSelectionChange($event)\">\n          </storybook-input-dropdown>\n        </div>\n    </header>\n  `,\n  styleUrls: ['./app-header.component.css'],\n})\nexport class AppHeaderComponent {\n  /** Configuration du header */\n  @Input()\n  config: AppHeaderConfig = {\n    logo: {\n      text: 'Planexa'\n    },\n    navigation: {\n      tabs: [\n        { id: 'calendar', label: 'Calendrier', icon: 'calendar' },\n        { id: 'patients', label: 'Patients', icon: 'patient' }\n      ],\n      activeTabId: 'calendar'\n    },\n    user: {\n      name: 'Louis Pasteur',\n      role: 'Médecin'\n    },\n    showSyncButton: true\n  };\n\n  /** Événements */\n  @Output()\n  navigationChange = new EventEmitter<TabItem>();\n\n  @Output()\n  syncClick = new EventEmitter<void>();\n\n  @Output()\n  userProfileClick = new EventEmitter<UserProfile>();\n\n  @Output()\n  logoClick = new EventEmitter<void>();\n\n  @Output()\n  userSelectionChange = new EventEmitter<string>();\n\n  onNavigationChange(tab: TabItem): void {\n    this.config.navigation.activeTabId = tab.id;\n    this.navigationChange.emit(tab);\n  }\n\n  onSyncClick(): void {\n    this.syncClick.emit();\n  }\n\n  onUserProfileClick(): void {\n    this.userProfileClick.emit(this.config.user);\n  }\n\n  onLogoClick(): void {\n    this.logoClick.emit();\n  }\n\n  getInitials(name: string): string {\n    return name\n      .split(' ')\n      .map(word => word.charAt(0))\n      .join('')\n      .toUpperCase()\n      .substring(0, 2);\n  }\n\n  getUserOptions(): string[] {\n    // Options exemple pour le changement d'utilisateur\n    return [\n      this.config.user.name,\n      'Dr. Marie Curie',\n      'Dr. Pierre Dupont',\n      'Déconnexion'\n    ];\n  }\n\n  onUserSelectionChange(selectedUser: string): void {\n    if (selectedUser === 'Déconnexion') {\n      // Gérer la déconnexion\n      this.userSelectionChange.emit('logout');\n    } else {\n      // Changer d'utilisateur\n      this.config.user.name = selectedUser;\n      this.userSelectionChange.emit(selectedUser);\n    }\n  }\n}\n",
             "properties": [
                 {
                     "name": "avatar",
@@ -333,7 +308,7 @@
         },
         {
             "name": "AppHeaderComponent",
-            "id": "component-AppHeaderComponent-027803ec0ed7f2677512bd2bd47dc2d9c4d18bdae5e258fe9ef06466969af233b53932c00ee2f256a0656d34888c708d80808808d8266d635e6c9fb9f3823725",
+            "id": "component-AppHeaderComponent-09c2c4225ab680e5897bfbe5892e6258654df6a023ef9c5e9c1decd7be1317bd776ed706d135edc96edd886c6b3d2a4304b6b3ad01ecbcf34a52246edb59ec10",
             "file": "src/stories/Planexa/app-header.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -345,7 +320,7 @@
                 "./app-header.component.css"
             ],
             "styles": [],
-            "template": "<header class=\"app-header\">\n  <!-- Logo section -->\n  <div class=\"logo-section\">\n    <div class=\"logo\">\n      <!-- Logo Planexa avec icône -->\n      <div class=\"logo-icon\">\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n          <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <defs>\n            <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n              <stop stop-color=\"#6366F1\"/>\n              <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n            </linearGradient>\n          </defs>\n        </svg>\n      </div>\n      <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n    </div>\n  </div>\n\n  <!-- Navigation section -->\n  <div class=\"navigation-section\">\n    <storybook-segmented-control\n      [tabs]=\"config.navigation.tabs\"\n      [activeTabId]=\"config.navigation.activeTabId\"\n      [width]=\"400\"\n      (tabChange)=\"onNavigationChange($event)\"\n    ></storybook-segmented-control>\n  </div>\n\n  <!-- User section -->\n  <div class=\"user-section\">\n    <!-- User profile -->\n    <div class=\"user-profile\" (click)=\"onUserProfileClick()\">\n      <storybook-input-dropdown\n        [label]=\"''\"\n        [placeholder]=\"config.user.name\"\n        [supportingText]=\"config.user.role\"\n        [selectedValue]=\"config.user.name\"\n        [options]=\"getUserOptions()\"\n        [leftIcon]=\"false\"\n        [rightIcon]=\"true\"\n        [showSupportingText]=\"false\"\n        [showBorder]=\"false\"\n        [width]=\"180\"\n        (selectionChange)=\"onUserSelectionChange($event)\">\n      </storybook-input-dropdown>\n    </div>\n  </div>\n</header>\n",
+            "template": "<header class=\"app-header\">\n  <!-- Logo section -->\n  <div class=\"logo-section\">\n    <div class=\"logo\">\n      <!-- Logo Planexa avec icône -->\n      <div class=\"logo-icon\">\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n          <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <defs>\n            <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n              <stop stop-color=\"#6366F1\"/>\n              <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n            </linearGradient>\n          </defs>\n        </svg>\n      </div>\n      <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n    </div>\n  </div>\n\n  <!-- Navigation section -->\n  <div class=\"navigation-section\">\n    <storybook-segmented-control\n      [tabs]=\"config.navigation.tabs\"\n      [activeTabId]=\"config.navigation.activeTabId\"\n      [width]=\"400\"\n      (tabChange)=\"onNavigationChange($event)\"\n    ></storybook-segmented-control>\n  </div>\n\n  <!-- User section -->\n  <div class=\"user-section\" (click)=\"onUserProfileClick()\">\n    <!-- User profile -->\n      <storybook-input-dropdown\n        label=\"\"\n        [placeholder]=\"config.user.name\"\n        [selectedValue]=\"config.user.name\"\n        [options]=\"getUserOptions()\"\n        [leftIcon]=\"false\"\n        [rightIcon]=\"true\"\n        [showSupportingText]=\"false\"\n        (selectionChange)=\"onUserSelectionChange($event)\">\n      </storybook-input-dropdown>\n    </div>\n</header>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -357,7 +332,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nConfiguration du header",
                     "description": "<p>Configuration du header</p>\n",
-                    "line": 87,
+                    "line": 82,
                     "type": "AppHeaderConfig",
                     "decorators": []
                 }
@@ -368,7 +343,7 @@
                     "defaultValue": "new EventEmitter<void>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 116,
+                    "line": 111,
                     "type": "EventEmitter"
                 },
                 {
@@ -378,7 +353,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nÉvénements",
                     "description": "<p>Événements</p>\n",
-                    "line": 107,
+                    "line": 102,
                     "type": "EventEmitter"
                 },
                 {
@@ -386,7 +361,7 @@
                     "defaultValue": "new EventEmitter<void>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 110,
+                    "line": 105,
                     "type": "EventEmitter"
                 },
                 {
@@ -394,7 +369,7 @@
                     "defaultValue": "new EventEmitter<UserProfile>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 113,
+                    "line": 108,
                     "type": "EventEmitter"
                 },
                 {
@@ -402,7 +377,7 @@
                     "defaultValue": "new EventEmitter<string>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 119,
+                    "line": 114,
                     "type": "EventEmitter"
                 }
             ],
@@ -421,7 +396,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 130,
+                    "line": 133,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -442,7 +417,7 @@
                     "optional": false,
                     "returnType": "string[]",
                     "typeParameters": [],
-                    "line": 139,
+                    "line": 142,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -452,7 +427,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 126,
+                    "line": 129,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -469,7 +444,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 121,
+                    "line": 116,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -485,6 +460,26 @@
                     ]
                 },
                 {
+                    "name": "onSyncClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 121,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onUserProfileClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 125,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "onUserSelectionChange",
                     "args": [
                         {
@@ -497,7 +492,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 149,
+                    "line": 152,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -535,150 +530,16 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\nimport { InputDropdownComponent } from './input-dropdown.component';\n\nexport interface UserProfile {\n  name: string;\n  role: string;\n  avatar?: string;\n}\n\nexport interface AppHeaderConfig {\n  logo?: {\n    text: string;\n    icon?: string;\n  };\n  navigation: {\n    tabs: TabItem[];\n    activeTabId: string;\n  };\n  user: UserProfile;\n  showSyncButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-app-header',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent, InputDropdownComponent],\n  template: `\n    <header class=\"app-header\">\n      <!-- Logo section -->\n      <div class=\"logo-section\">\n        <div class=\"logo\">\n          <!-- Logo Planexa avec icône -->\n          <div class=\"logo-icon\">\n            <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n              <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              <defs>\n                <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n                  <stop stop-color=\"#6366F1\"/>\n                  <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n                </linearGradient>\n              </defs>\n            </svg>\n          </div>\n          <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n        </div>\n      </div>\n\n      <!-- Navigation section -->\n      <div class=\"navigation-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.navigation.tabs\"\n          [activeTabId]=\"config.navigation.activeTabId\"\n          [width]=\"400\"\n          (tabChange)=\"onNavigationChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- User section -->\n      <div class=\"user-section\">\n        <!-- User profile -->\n        <div class=\"user-profile\" (click)=\"onUserProfileClick()\">\n          <storybook-input-dropdown\n            [label]=\"''\"\n            [placeholder]=\"config.user.name\"\n            [supportingText]=\"config.user.role\"\n            [selectedValue]=\"config.user.name\"\n            [options]=\"getUserOptions()\"\n            [leftIcon]=\"false\"\n            [rightIcon]=\"true\"\n            [showSupportingText]=\"false\"\n            [showBorder]=\"false\"\n            [width]=\"180\"\n            (selectionChange)=\"onUserSelectionChange($event)\">\n          </storybook-input-dropdown>\n        </div>\n      </div>\n    </header>\n  `,\n  styleUrls: ['./app-header.component.css'],\n})\nexport class AppHeaderComponent {\n  /** Configuration du header */\n  @Input()\n  config: AppHeaderConfig = {\n    logo: {\n      text: 'Planexa'\n    },\n    navigation: {\n      tabs: [\n        { id: 'calendar', label: 'Calendrier', icon: 'calendar' },\n        { id: 'patients', label: 'Patients', icon: 'patient' }\n      ],\n      activeTabId: 'calendar'\n    },\n    user: {\n      name: 'Louis Pasteur',\n      role: 'Médecin'\n    },\n    showSyncButton: true\n  };\n\n  /** Événements */\n  @Output()\n  navigationChange = new EventEmitter<TabItem>();\n\n  @Output()\n  syncClick = new EventEmitter<void>();\n\n  @Output()\n  userProfileClick = new EventEmitter<UserProfile>();\n\n  @Output()\n  logoClick = new EventEmitter<void>();\n\n  @Output()\n  userSelectionChange = new EventEmitter<string>();\n\n  onNavigationChange(tab: TabItem): void {\n    this.config.navigation.activeTabId = tab.id;\n    this.navigationChange.emit(tab);\n  }\n\n  onLogoClick(): void {\n    this.logoClick.emit();\n  }\n\n  getInitials(name: string): string {\n    return name\n      .split(' ')\n      .map(word => word.charAt(0))\n      .join('')\n      .toUpperCase()\n      .substring(0, 2);\n  }\n\n  getUserOptions(): string[] {\n    // Options exemple pour le changement d'utilisateur\n    return [\n      this.config.user.name,\n      'Dr. Marie Curie',\n      'Dr. Pierre Dupont',\n      'Déconnexion'\n    ];\n  }\n\n  onUserSelectionChange(selectedUser: string): void {\n    if (selectedUser === 'Déconnexion') {\n      // Gérer la déconnexion\n      this.userSelectionChange.emit('logout');\n    } else {\n      // Changer d'utilisateur\n      this.config.user.name = selectedUser;\n      this.userSelectionChange.emit(selectedUser);\n    }\n  }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { SegmentedControlComponent, TabItem } from './segmented-control.component';\nimport { InputDropdownComponent } from './input-dropdown.component';\n\nexport interface UserProfile {\n  name: string;\n  role: string;\n  avatar?: string;\n}\n\nexport interface AppHeaderConfig {\n  logo?: {\n    text: string;\n    icon?: string;\n  };\n  navigation: {\n    tabs: TabItem[];\n    activeTabId: string;\n  };\n  user: UserProfile;\n  showSyncButton?: boolean;\n}\n\n@Component({\n  selector: 'storybook-app-header',\n  standalone: true,\n  imports: [CommonModule, SegmentedControlComponent, InputDropdownComponent],\n  template: `\n    <header class=\"app-header\">\n      <!-- Logo section -->\n      <div class=\"logo-section\">\n        <div class=\"logo\">\n          <!-- Logo Planexa avec icône -->\n          <div class=\"logo-icon\">\n            <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <rect width=\"32\" height=\"32\" rx=\"8\" fill=\"url(#planexaGradient)\"/>\n              <path d=\"M10.5 13.5L16 8L21.5 13.5M16 8V24\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              <defs>\n                <linearGradient id=\"planexaGradient\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\n                  <stop stop-color=\"#6366F1\"/>\n                  <stop offset=\"1\" stop-color=\"#8B5CF6\"/>\n                </linearGradient>\n              </defs>\n            </svg>\n          </div>\n          <span class=\"logo-text\">{{ config.logo?.text || 'Planexa' }}</span>\n        </div>\n      </div>\n\n      <!-- Navigation section -->\n      <div class=\"navigation-section\">\n        <storybook-segmented-control\n          [tabs]=\"config.navigation.tabs\"\n          [activeTabId]=\"config.navigation.activeTabId\"\n          [width]=\"400\"\n          (tabChange)=\"onNavigationChange($event)\"\n        ></storybook-segmented-control>\n      </div>\n\n      <!-- User section -->\n      <div class=\"user-section\" (click)=\"onUserProfileClick()\">\n        <!-- User profile -->\n          <storybook-input-dropdown\n            label=\"\"\n            [placeholder]=\"config.user.name\"\n            [selectedValue]=\"config.user.name\"\n            [options]=\"getUserOptions()\"\n            [leftIcon]=\"false\"\n            [rightIcon]=\"true\"\n            [showSupportingText]=\"false\"\n            (selectionChange)=\"onUserSelectionChange($event)\">\n          </storybook-input-dropdown>\n        </div>\n    </header>\n  `,\n  styleUrls: ['./app-header.component.css'],\n})\nexport class AppHeaderComponent {\n  /** Configuration du header */\n  @Input()\n  config: AppHeaderConfig = {\n    logo: {\n      text: 'Planexa'\n    },\n    navigation: {\n      tabs: [\n        { id: 'calendar', label: 'Calendrier', icon: 'calendar' },\n        { id: 'patients', label: 'Patients', icon: 'patient' }\n      ],\n      activeTabId: 'calendar'\n    },\n    user: {\n      name: 'Louis Pasteur',\n      role: 'Médecin'\n    },\n    showSyncButton: true\n  };\n\n  /** Événements */\n  @Output()\n  navigationChange = new EventEmitter<TabItem>();\n\n  @Output()\n  syncClick = new EventEmitter<void>();\n\n  @Output()\n  userProfileClick = new EventEmitter<UserProfile>();\n\n  @Output()\n  logoClick = new EventEmitter<void>();\n\n  @Output()\n  userSelectionChange = new EventEmitter<string>();\n\n  onNavigationChange(tab: TabItem): void {\n    this.config.navigation.activeTabId = tab.id;\n    this.navigationChange.emit(tab);\n  }\n\n  onSyncClick(): void {\n    this.syncClick.emit();\n  }\n\n  onUserProfileClick(): void {\n    this.userProfileClick.emit(this.config.user);\n  }\n\n  onLogoClick(): void {\n    this.logoClick.emit();\n  }\n\n  getInitials(name: string): string {\n    return name\n      .split(' ')\n      .map(word => word.charAt(0))\n      .join('')\n      .toUpperCase()\n      .substring(0, 2);\n  }\n\n  getUserOptions(): string[] {\n    // Options exemple pour le changement d'utilisateur\n    return [\n      this.config.user.name,\n      'Dr. Marie Curie',\n      'Dr. Pierre Dupont',\n      'Déconnexion'\n    ];\n  }\n\n  onUserSelectionChange(selectedUser: string): void {\n    if (selectedUser === 'Déconnexion') {\n      // Gérer la déconnexion\n      this.userSelectionChange.emit('logout');\n    } else {\n      // Changer d'utilisateur\n      this.config.user.name = selectedUser;\n      this.userSelectionChange.emit(selectedUser);\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".app-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 24px;\n  background-color: #ffffff;\n  border-bottom: 1px solid #e2e8f0;\n  height: 72px;\n  box-sizing: border-box;\n  position: relative;\n  z-index: 1000;\n}\n\n/* Logo Section */\n.logo-section {\n  display: flex;\n  align-items: center;\n  flex-shrink: 0;\n}\n\n.logo {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  cursor: pointer;\n  transition: opacity 0.2s ease;\n}\n\n.logo:hover {\n  opacity: 0.8;\n}\n\n.logo-icon {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 40px;\n  height: 40px;\n  flex-shrink: 0;\n}\n\n.logo-icon svg {\n  width: 40px;\n  height: 40px;\n  border-radius: 8px;\n}\n\n.logo-text {\n  font-size: 20px;\n  font-weight: 600;\n  color: #1e293b;\n  letter-spacing: -0.025em;\n}\n\n/* Navigation Section */\n.navigation-section {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex: 1;\n  max-width: 500px;\n  margin: 0 auto;\n}\n\n/* User Section */\n.user-section {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  flex-shrink: 0;\n}\n\n/* Sync Button */\n.sync-button {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 40px;\n  height: 40px;\n  background-color: #f8fafc;\n  border: 1px solid #e2e8f0;\n  border-radius: 8px;\n  color: #64748b;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n\n.sync-button:hover {\n  background-color: #f1f5f9;\n  border-color: #cbd5e1;\n  color: #475569;\n}\n\n.sync-button:active {\n  transform: scale(0.98);\n}\n\n/* User Profile */\n.user-profile {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 0;\n  background-color: transparent;\n  border: none;\n  border-radius: 12px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  min-width: 160px;\n  max-width: 220px;\n}\n\n.user-profile:hover {\n  background-color: #f1f5f9;\n  border-color: #cbd5e1;\n}\n\n.user-profile:active {\n  transform: scale(0.98);\n}\n\n/* User Avatar */\n.user-avatar {\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  overflow: hidden;\n  flex-shrink: 0;\n  background-color: #e2e8f0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.avatar-image {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n\n.avatar-placeholder {\n  font-size: 12px;\n  font-weight: 600;\n  color: #64748b;\n  text-transform: uppercase;\n}\n\n/* User Info */\n.user-info {\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n  flex: 1;\n  min-width: 0;\n}\n\n.user-name {\n  font-size: 14px;\n  font-weight: 500;\n  color: #1e293b;\n  line-height: 1.2;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.user-role {\n  font-size: 12px;\n  color: #64748b;\n  line-height: 1.2;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n/* Dropdown Arrow */\n.dropdown-arrow {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #94a3b8;\n  transition: transform 0.2s ease;\n}\n\n.user-profile:hover .dropdown-arrow {\n  color: #64748b;\n}\n\n/* Responsive Design */\n@media (max-width: 768px) {\n  .app-header {\n    padding: 8px 16px;\n    height: 64px;\n  }\n\n  .logo-text {\n    display: none;\n  }\n\n  .logo-icon {\n    width: 32px;\n    height: 32px;\n  }\n\n  .logo-icon svg {\n    width: 32px;\n    height: 32px;\n  }\n\n  .navigation-section {\n    max-width: 300px;\n  }\n\n  .user-info {\n    display: none;\n  }\n\n  .user-profile {\n    min-width: auto;\n    padding: 6px;\n  }\n\n  .dropdown-arrow {\n    display: none;\n  }\n}\n\n@media (max-width: 480px) {\n  .app-header {\n    padding: 8px 12px;\n  }\n\n  .sync-button {\n    width: 36px;\n    height: 36px;\n  }\n\n  .user-avatar {\n    width: 28px;\n    height: 28px;\n  }\n\n  .navigation-section {\n    max-width: 250px;\n  }\n}\n",
+                    "data": ".app-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 24px;\n  background-color: #ffffff;\n  border-bottom: 1px solid #e2e8f0;\n  height: 72px;\n  box-sizing: border-box;\n  position: relative;\n  z-index: 1000;\n}\n\n/* Logo Section */\n.logo-section {\n  display: flex;\n  align-items: center;\n  flex-shrink: 1;\n}\n\n.logo {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  cursor: pointer;\n  transition: opacity 0.2s ease;\n}\n\n.logo:hover {\n  opacity: 0.8;\n}\n\n.logo-icon {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 40px;\n  height: 40px;\n  flex-shrink: 0;\n}\n\n.logo-icon svg {\n  width: 40px;\n  height: 40px;\n  border-radius: 8px;\n}\n\n.logo-text {\n  font-size: 20px;\n  font-weight: 600;\n  color: #1e293b;\n  letter-spacing: -0.025em;\n}\n\n/* Navigation Section */\n.navigation-section {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex: 1;\n  max-width: 500px;\n  margin: 0 auto;\n}\n\n/* User Section */\n\n.user-section {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n  max-width: 200px; /* Ajustable selon tes besoins */\n  /* overflow: hidden; */\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n\n.user-section {\n  flex-shrink: 1;\n  flex-grow: 0;\n}\n\n\n\n\n\n.user-profile:hover {\n  background-color: #f1f5f9;\n  border-color: #cbd5e1;\n}\n\n.user-profile:active {\n  transform: scale(0.98);\n}\n\n/* Dropdown Arrow */\n.dropdown-arrow {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #94a3b8;\n  transition: transform 0.2s ease;\n}\n\n.user-profile:hover .dropdown-arrow {\n  color: #64748b;\n}\n\n/* Responsive Design */\n@media (max-width: 768px) {\n  .app-header {\n    padding: 8px 16px;\n    height: 64px;\n  }\n\n  .logo-text {\n    display: none;\n  }\n\n  .logo-icon {\n    width: 32px;\n    height: 32px;\n  }\n\n  .logo-icon svg {\n    width: 32px;\n    height: 32px;\n  }\n\n  .navigation-section {\n    max-width: 300px;\n  }\n\n  .user-info {\n    display: none;\n  }\n\n  .user-profile {\n    min-width: auto;\n    padding: 6px;\n  }\n\n  .dropdown-arrow {\n    display: none;\n  }\n}\n\n@media (max-width: 480px) {\n  .app-header {\n    padding: 8px 12px;\n  }\n\n  .sync-button {\n    width: 36px;\n    height: 36px;\n  }\n\n  .user-avatar {\n    width: 28px;\n    height: 28px;\n  }\n\n  .navigation-section {\n    max-width: 250px;\n  }\n}\n",
                     "styleUrl": "./app-header.component.css"
                 }
             ],
             "stylesData": "",
             "extends": []
-        },
-        {
-            "name": "ButtonComponent",
-            "id": "component-ButtonComponent-d7bf0323e6da130e2609e2af0117b4a8d7cd874132206af50bf43dfc37044485fe50f2867ea76525730dd195b9b95a43802a12dadc6ad5cd7bf2faa07f19f0da",
-            "file": "src/stories/button.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "storybook-button",
-            "styleUrls": [
-                "./button.css"
-            ],
-            "styles": [],
-            "template": " <button  type=\"button\"\n  (click)=\"onClick.emit($event)\"\n  [ngClass]=\"classes\"\n  [ngStyle]=\"{ 'background-color': backgroundColor }\"\n>\n  {{ label }}\n</button>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [
-                {
-                    "name": "backgroundColor",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "\nWhat background color to use",
-                    "description": "<p>What background color to use</p>\n",
-                    "line": 25,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "label",
-                    "defaultValue": "'Button'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "pos": 760,
-                            "end": 773,
-                            "kind": 327,
-                            "id": 0,
-                            "flags": 16842752,
-                            "modifierFlagsCache": 0,
-                            "transformFlags": 0,
-                            "tagName": {
-                                "pos": 761,
-                                "end": 769,
-                                "kind": 80,
-                                "id": 0,
-                                "flags": 16842752,
-                                "transformFlags": 0,
-                                "escapedText": "required"
-                            },
-                            "comment": ""
-                        }
-                    ],
-                    "rawdescription": "\n\nButton contents\n\n",
-                    "description": "<p>Button contents</p>\n",
-                    "line": 37,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "primary",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "\nIs this the principal call to action on the page?",
-                    "description": "<p>Is this the principal call to action on the page?</p>\n",
-                    "line": 21,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "size",
-                    "defaultValue": "'medium'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "\nHow large should the button be?",
-                    "description": "<p>How large should the button be?</p>\n",
-                    "line": 29,
-                    "type": "\"small\" | \"medium\" | \"large\"",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [
-                {
-                    "name": "onClick",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "\nOptional click handler",
-                    "description": "<p>Optional click handler</p>\n",
-                    "line": 41,
-                    "type": "EventEmitter"
-                }
-            ],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [
-                {
-                    "name": "CommonModule",
-                    "type": "module"
-                }
-            ],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-button',\n  standalone: true,\n  imports: [CommonModule],\n  template: ` <button\n  type=\"button\"\n  (click)=\"onClick.emit($event)\"\n  [ngClass]=\"classes\"\n  [ngStyle]=\"{ 'background-color': backgroundColor }\"\n>\n  {{ label }}\n</button>`,\n  styleUrls: ['./button.css'],\n})\nexport class ButtonComponent {\n  /** Is this the principal call to action on the page? */\n  @Input()\n  primary = false;\n\n  /** What background color to use */\n  @Input()\n  backgroundColor?: string;\n\n  /** How large should the button be? */\n  @Input()\n  size: 'small' | 'medium' | 'large' = 'medium';\n\n  /**\n   * Button contents\n   *\n   * @required\n   */\n  @Input()\n  label = 'Button';\n\n  /** Optional click handler */\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\n\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\n  }\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".storybook-button {\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 3em;\n  font-weight: 700;\n  line-height: 1;\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n}\n.storybook-button--primary {\n  background-color: #555ab9;\n  color: white;\n}\n.storybook-button--secondary {\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\n  background-color: transparent;\n  color: #333;\n}\n.storybook-button--small {\n  padding: 10px 16px;\n  font-size: 12px;\n}\n.storybook-button--medium {\n  padding: 11px 20px;\n  font-size: 14px;\n}\n.storybook-button--large {\n  padding: 12px 24px;\n  font-size: 16px;\n}\n",
-                    "styleUrl": "./button.css"
-                }
-            ],
-            "stylesData": "",
-            "extends": [],
-            "accessors": {
-                "classes": {
-                    "name": "classes",
-                    "getSignature": {
-                        "name": "classes",
-                        "type": "[]",
-                        "returnType": "string[]",
-                        "line": 43
-                    }
-                }
-            }
         },
         {
             "name": "DropdownComponent",
@@ -846,7 +707,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".dropdown-container {\n  position: absolute;\n  top: 48px; /* Position juste en dessous de l'input field (44px hauteur + 4px marge) */\n  left: 0;\n  right: 0;\n  z-index: 1000;\n}\n\n.dropdown-list {\n  background: white;\n  border: 1px solid #D1D5DB;\n  border-radius: 8px;\n  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);\n  max-height: 200px;\n  overflow-y: auto;\n}\n\n.dropdown-item {\n  padding: 12px 16px;\n  cursor: pointer;\n  font-size: 14px;\n  color: #374151;\n  border-bottom: 1px solid #F3F4F6;\n  transition: background-color 0.2s ease;\n}\n\n.dropdown-item:last-child {\n  border-bottom: none;\n}\n\n.dropdown-item:hover {\n  background-color: #F9FAFB;\n}\n\n.dropdown-item.selected {\n  background-color: #EBF8FF;\n  color: #1D4ED8;\n  font-weight: 500;\n}\n\n.dropdown-item.selected:hover {\n  background-color: #DBEAFE;\n}\n",
+                    "data": ".dropdown-container {\n  position: absolute;\n  top: 48px; /* Position juste en dessous de l'input field (44px hauteur + 4px marge) */\n  left: 0;\n  right: 0;\n  z-index: 1000;\n}\n\n.dropdown-list {\n  background: white;\n  border: 1px solid #D1D5DB;\n  border-radius: 8px;\n  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);\n  max-height: 200px;\n  overflow-y: auto;\n}\n\n.dropdown-item {\n  padding: 12px 10px;\n  cursor: pointer;\n  font-size: 14px;\n  color: #374151;\n  border-bottom: 1px solid #F3F4F6;\n  transition: background-color 0.2s ease;\n}\n\n.dropdown-item:last-child {\n  border-bottom: none;\n}\n\n.dropdown-item:hover {\n  background-color: #F9FAFB;\n}\n\n.dropdown-item.selected {\n  background-color: #EBF8FF;\n  color: #1D4ED8;\n  font-weight: 500;\n}\n\n.dropdown-item.selected:hover {\n  background-color: #DBEAFE;\n}\n",
                     "styleUrl": "./dropdown.component.css"
                 }
             ],
@@ -854,94 +715,8 @@
             "extends": []
         },
         {
-            "name": "HeaderComponent",
-            "id": "component-HeaderComponent-48b9abe37706bc42f20cfa97ed9f943678344ea7d254c0c82183c657750c2191b43486fe730c778627b2ea6aa0e2f33a7abcf3ce08b68ad18b062ad99ea97acb",
-            "file": "src/stories/header.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "storybook-header",
-            "styleUrls": [
-                "./header.css"
-            ],
-            "styles": [],
-            "template": "<header>  <div class=\"storybook-header\">\n    <div>\n      <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n        <g fill=\"none\" fillRule=\"evenodd\">\n          <path\n            d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n            fill=\"#FFF\"\n          />\n          <path\n            d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n            fill=\"#555AB9\"\n          />\n          <path d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\" fill=\"#91BAF8\" />\n        </g>\n      </svg>\n      <h1>Acme</h1>\n    </div>\n    <div>\n      <div *ngIf=\"user\">\n        <span class=\"welcome\">\n          Welcome, <b>{{ user.name }}</b\n          >!\n        </span>\n        <storybook-button\n          *ngIf=\"user\"\n          size=\"small\"\n          (onClick)=\"onLogout.emit($event)\"\n          label=\"Log out\"\n        ></storybook-button>\n      </div>\n      <div *ngIf=\"!user\">\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          class=\"margin-left\"\n          (onClick)=\"onLogin.emit($event)\"\n          label=\"Log in\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          [primary]=\"true\"\n          class=\"margin-left\"\n          (onClick)=\"onCreateAccount.emit($event)\"\n          label=\"Sign up\"\n        ></storybook-button>\n      </div>\n    </div>\n  </div>\n</header>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [
-                {
-                    "name": "user",
-                    "defaultValue": "null",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 66,
-                    "type": "User | null",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [
-                {
-                    "name": "onCreateAccount",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 75,
-                    "type": "EventEmitter"
-                },
-                {
-                    "name": "onLogin",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 69,
-                    "type": "EventEmitter"
-                },
-                {
-                    "name": "onLogout",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 72,
-                    "type": "EventEmitter"
-                }
-            ],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [
-                {
-                    "name": "CommonModule",
-                    "type": "module"
-                },
-                {
-                    "name": "ButtonComponent",
-                    "type": "component"
-                }
-            ],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\nimport { ButtonComponent } from './button.component';\nimport type { User } from './user';\n\n@Component({\n  selector: 'storybook-header',\n  standalone: true,\n  imports: [CommonModule, ButtonComponent],\n  template: `<header>\n  <div class=\"storybook-header\">\n    <div>\n      <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n        <g fill=\"none\" fillRule=\"evenodd\">\n          <path\n            d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n            fill=\"#FFF\"\n          />\n          <path\n            d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n            fill=\"#555AB9\"\n          />\n          <path d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\" fill=\"#91BAF8\" />\n        </g>\n      </svg>\n      <h1>Acme</h1>\n    </div>\n    <div>\n      <div *ngIf=\"user\">\n        <span class=\"welcome\">\n          Welcome, <b>{{ user.name }}</b\n          >!\n        </span>\n        <storybook-button\n          *ngIf=\"user\"\n          size=\"small\"\n          (onClick)=\"onLogout.emit($event)\"\n          label=\"Log out\"\n        ></storybook-button>\n      </div>\n      <div *ngIf=\"!user\">\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          class=\"margin-left\"\n          (onClick)=\"onLogin.emit($event)\"\n          label=\"Log in\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          [primary]=\"true\"\n          class=\"margin-left\"\n          (onClick)=\"onCreateAccount.emit($event)\"\n          label=\"Sign up\"\n        ></storybook-button>\n      </div>\n    </div>\n  </div>\n</header>`,\n  styleUrls: ['./header.css'],\n})\nexport class HeaderComponent {\n  @Input()\n  user: User | null = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".storybook-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n}\n\n.storybook-header svg {\n  display: inline-block;\n  vertical-align: top;\n}\n\n.storybook-header h1 {\n  display: inline-block;\n  vertical-align: top;\n  margin: 6px 0 6px 10px;\n  font-weight: 700;\n  font-size: 20px;\n  line-height: 1;\n}\n\n.storybook-header button + button {\n  margin-left: 10px;\n}\n\n.storybook-header .welcome {\n  margin-right: 10px;\n  color: #333;\n  font-size: 14px;\n}\n",
-                    "styleUrl": "./header.css"
-                }
-            ],
-            "stylesData": "",
-            "extends": []
-        },
-        {
             "name": "InputDropdownComponent",
-            "id": "component-InputDropdownComponent-5c9f54fe5002b6200d369f72e123e1f6843dac4b043cd196db97d2773a8b3d3b86d6f61fd5ee8c2d5090f5e5852f4d01c0d30dd4bdc808fc8c4c5432b15450fc",
+            "id": "component-InputDropdownComponent-a26aae46b235a43a5097c09ffec443611024e6beb2f406e2ff0c69ddd3c4ee0f531dc948d9693fb26dc728330df999c04ea68cdf08d79a402105f39b3d6f52a5",
             "file": "src/stories/Planexa/input-dropdown.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -951,9 +726,9 @@
             "selector": "storybook-input-dropdown",
             "styleUrls": [],
             "styles": [
-                "\n    .input-dropdown-wrapper {\n      width: 100%;\n      min-width: 120px;\n      max-width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 8px;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  "
+                "\n    .input-dropdown-wrapper {\n      max-width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 0;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  "
             ],
-            "template": "<div class=\"input-dropdown-wrapper\" [style.width]=\"width ? width + 'px' : '100%'\">\n  <!-- Label -->\n  <label *ngIf=\"label\" class=\"input-label\">{{ label }}</label>\n\n  <!-- Input field avec dropdown positionné juste en dessous -->\n  <div class=\"input-field-container\">\n    <storybook-input-field\n      [label]=\"''\"\n      [placeholder]=\"placeholder\"\n      [supportingText]=\"''\"\n      [value]=\"selectedValue\"\n      [rightIcon]=\"rightIcon\"\n      [leftIcon]=\"leftIcon\"\n      [showBorder]=\"showBorder\"\n      [readonly]=\"true\"\n      (dropdownClick)=\"toggleDropdown()\"\n    >\n    </storybook-input-field>\n\n    <storybook-dropdown\n      [isOpen]=\"dropdownOpen\"\n      [items]=\"options\"\n      [selectedItem]=\"selectedValue\"\n      (itemSelected)=\"onItemSelected($event)\"\n      (closeDropdown)=\"closeDropdown()\"\n    >\n    </storybook-dropdown>\n  </div>\n\n  <!-- Supporting text en bas -->\n  <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">{{ supportingText }}</p>\n</div>\n",
+            "template": "<div class=\"input-dropdown-wrapper\">\n  <!-- Label -->\n  <label *ngIf=\"label\" class=\"input-label\">{{ label }}</label>\n\n  <!-- Input field avec dropdown positionné juste en dessous -->\n  <div class=\"input-field-container\">\n    <storybook-input-field\n      [label]=\"''\"\n      [placeholder]=\"placeholder\"\n      [supportingText]=\"''\"\n      [value]=\"selectedValue\"\n      [rightIcon]=\"rightIcon\"\n      [leftIcon]=\"leftIcon\"\n      [showBorder]=\"showBorder\"\n      [readonly]=\"true\"\n      (dropdownClick)=\"toggleDropdown()\"\n    >\n    </storybook-input-field>\n\n    <storybook-dropdown\n      [isOpen]=\"dropdownOpen\"\n      [items]=\"options\"\n      [selectedItem]=\"selectedValue\"\n      (itemSelected)=\"onItemSelected($event)\"\n      (closeDropdown)=\"closeDropdown()\"\n    >\n    </storybook-dropdown>\n  </div>\n\n  <!-- Supporting text en bas -->\n  <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">{{ supportingText }}</p>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -965,7 +740,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nLabel du champ",
                     "description": "<p>Label du champ</p>\n",
-                    "line": 77,
+                    "line": 75,
                     "type": "string",
                     "decorators": []
                 },
@@ -976,7 +751,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nAfficher l'icône de gauche",
                     "description": "<p>Afficher l&#39;icône de gauche</p>\n",
-                    "line": 93,
+                    "line": 91,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -987,7 +762,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nOptions du dropdown",
                     "description": "<p>Options du dropdown</p>\n",
-                    "line": 89,
+                    "line": 87,
                     "type": "string[]",
                     "decorators": []
                 },
@@ -998,7 +773,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nPlaceholder",
                     "description": "<p>Placeholder</p>\n",
-                    "line": 81,
+                    "line": 79,
                     "type": "string",
                     "decorators": []
                 },
@@ -1009,7 +784,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nAfficher l'icône de droite (dropdown)",
                     "description": "<p>Afficher l&#39;icône de droite (dropdown)</p>\n",
-                    "line": 97,
+                    "line": 95,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -1020,7 +795,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nValeur sélectionnée",
                     "description": "<p>Valeur sélectionnée</p>\n",
-                    "line": 101,
+                    "line": 99,
                     "type": "string",
                     "decorators": []
                 },
@@ -1031,7 +806,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nAfficher ou masquer la bordure de l'input",
                     "description": "<p>Afficher ou masquer la bordure de l&#39;input</p>\n",
-                    "line": 109,
+                    "line": 107,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -1042,7 +817,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nAfficher ou masquer le texte de support",
                     "description": "<p>Afficher ou masquer le texte de support</p>\n",
-                    "line": 105,
+                    "line": 103,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -1053,7 +828,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nTexte de support",
                     "description": "<p>Texte de support</p>\n",
-                    "line": 85,
+                    "line": 83,
                     "type": "string",
                     "decorators": []
                 },
@@ -1063,7 +838,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nLargeur du composant (optionnelle)",
                     "description": "<p>Largeur du composant (optionnelle)</p>\n",
-                    "line": 113,
+                    "line": 111,
                     "type": "number",
                     "decorators": []
                 }
@@ -1076,7 +851,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\nÉvénement de sélection",
                     "description": "<p>Événement de sélection</p>\n",
-                    "line": 120,
+                    "line": 118,
                     "type": "EventEmitter"
                 }
             ],
@@ -1090,7 +865,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>État du dropdown</p>\n",
-                    "line": 116,
+                    "line": 114,
                     "rawdescription": "\nÉtat du dropdown"
                 }
             ],
@@ -1101,7 +876,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 127,
+                    "line": 125,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1118,7 +893,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 131,
+                    "line": 129,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1139,7 +914,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 122,
+                    "line": 120,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -1166,10 +941,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { PlaceholderComponent } from './placeholder.component';\nimport { DropdownComponent } from './dropdown.component';\n\n@Component({\n  selector: 'storybook-input-dropdown',\n  standalone: true,\n  imports: [CommonModule, PlaceholderComponent, DropdownComponent],\n  template: `\n    <div class=\"input-dropdown-wrapper\" [style.width]=\"width ? width + 'px' : '100%'\">\n      <!-- Label -->\n      <label *ngIf=\"label\" class=\"input-label\">{{ label }}</label>\n      \n      <!-- Input field avec dropdown positionné juste en dessous -->\n      <div class=\"input-field-container\">\n        <storybook-input-field\n          [label]=\"''\"\n          [placeholder]=\"placeholder\"\n          [supportingText]=\"''\"\n          [value]=\"selectedValue\"\n          [rightIcon]=\"rightIcon\"\n          [leftIcon]=\"leftIcon\"\n          [showBorder]=\"showBorder\"\n          [readonly]=\"true\"\n          (dropdownClick)=\"toggleDropdown()\"\n        >\n        </storybook-input-field>\n        \n        <storybook-dropdown\n          [isOpen]=\"dropdownOpen\"\n          [items]=\"options\"\n          [selectedItem]=\"selectedValue\"\n          (itemSelected)=\"onItemSelected($event)\"\n          (closeDropdown)=\"closeDropdown()\"\n        >\n        </storybook-dropdown>\n      </div>\n      \n      <!-- Supporting text en bas -->\n      <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">{{ supportingText }}</p>\n    </div>\n  `,\n  styles: [`\n    .input-dropdown-wrapper {\n      width: 100%;\n      min-width: 120px;\n      max-width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 8px;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  `],\n})\nexport class InputDropdownComponent {\n  /** Label du champ */\n  @Input()\n  label: string = 'Select option';\n\n  /** Placeholder */\n  @Input()\n  placeholder: string = 'Choose an option';\n\n  /** Texte de support */\n  @Input()\n  supportingText: string = 'Click the arrow to expand';\n\n  /** Options du dropdown */\n  @Input()\n  options: string[] = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];\n\n  /** Afficher l'icône de gauche */\n  @Input()\n  leftIcon: boolean = true;\n\n  /** Afficher l'icône de droite (dropdown) */\n  @Input()\n  rightIcon: boolean = true;\n\n  /** Valeur sélectionnée */\n  @Input()\n  selectedValue: string = '';\n\n  /** Afficher ou masquer le texte de support */\n  @Input()\n  showSupportingText: boolean = true;\n\n  /** Afficher ou masquer la bordure de l'input */\n  @Input()\n  showBorder: boolean = true;\n\n  /** Largeur du composant (optionnelle) */\n  @Input()\n  width?: number;\n\n  /** État du dropdown */\n  dropdownOpen: boolean = false;\n\n  /** Événement de sélection */\n  @Output()\n  selectionChange = new EventEmitter<string>();\n\n  toggleDropdown(): void {\n    this.dropdownOpen = !this.dropdownOpen;\n    console.log('Dropdown toggled:', this.dropdownOpen); // Debug\n  }\n\n  closeDropdown(): void {\n    this.dropdownOpen = false;\n  }\n\n  onItemSelected(item: string): void {\n    this.selectedValue = item;\n    this.selectionChange.emit(item);\n    console.log('Item selected:', item); // Debug\n  }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { PlaceholderComponent } from './placeholder.component';\nimport { DropdownComponent } from './dropdown.component';\n\n@Component({\n  selector: 'storybook-input-dropdown',\n  standalone: true,\n  imports: [CommonModule, PlaceholderComponent, DropdownComponent],\n  template: `\n    <div class=\"input-dropdown-wrapper\">\n      <!-- Label -->\n      <label *ngIf=\"label\" class=\"input-label\">{{ label }}</label>\n      \n      <!-- Input field avec dropdown positionné juste en dessous -->\n      <div class=\"input-field-container\">\n        <storybook-input-field\n          [label]=\"''\"\n          [placeholder]=\"placeholder\"\n          [supportingText]=\"''\"\n          [value]=\"selectedValue\"\n          [rightIcon]=\"rightIcon\"\n          [leftIcon]=\"leftIcon\"\n          [showBorder]=\"showBorder\"\n          [readonly]=\"true\"\n          (dropdownClick)=\"toggleDropdown()\"\n        >\n        </storybook-input-field>\n        \n        <storybook-dropdown\n          [isOpen]=\"dropdownOpen\"\n          [items]=\"options\"\n          [selectedItem]=\"selectedValue\"\n          (itemSelected)=\"onItemSelected($event)\"\n          (closeDropdown)=\"closeDropdown()\"\n        >\n        </storybook-dropdown>\n      </div>\n      \n      <!-- Supporting text en bas -->\n      <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">{{ supportingText }}</p>\n    </div>\n  `,\n  styles: [`\n    .input-dropdown-wrapper {\n      max-width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 0;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  `],\n})\nexport class InputDropdownComponent {\n  /** Label du champ */\n  @Input()\n  label: string = 'Select option';\n\n  /** Placeholder */\n  @Input()\n  placeholder: string = 'Choose an option';\n\n  /** Texte de support */\n  @Input()\n  supportingText: string = 'Click the arrow to expand';\n\n  /** Options du dropdown */\n  @Input()\n  options: string[] = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];\n\n  /** Afficher l'icône de gauche */\n  @Input()\n  leftIcon: boolean = true;\n\n  /** Afficher l'icône de droite (dropdown) */\n  @Input()\n  rightIcon: boolean = true;\n\n  /** Valeur sélectionnée */\n  @Input()\n  selectedValue: string = '';\n\n  /** Afficher ou masquer le texte de support */\n  @Input()\n  showSupportingText: boolean = true;\n\n  /** Afficher ou masquer la bordure de l'input */\n  @Input()\n  showBorder: boolean = true;\n\n  /** Largeur du composant (optionnelle) */\n  @Input()\n  width?: number;\n\n  /** État du dropdown */\n  dropdownOpen: boolean = false;\n\n  /** Événement de sélection */\n  @Output()\n  selectionChange = new EventEmitter<string>();\n\n  toggleDropdown(): void {\n    this.dropdownOpen = !this.dropdownOpen;\n    console.log('Dropdown toggled:', this.dropdownOpen); // Debug\n  }\n\n  closeDropdown(): void {\n    this.dropdownOpen = false;\n  }\n\n  onItemSelected(item: string): void {\n    this.selectedValue = item;\n    this.selectionChange.emit(item);\n    console.log('Item selected:', item); // Debug\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n    .input-dropdown-wrapper {\n      width: 100%;\n      min-width: 120px;\n      max-width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 8px;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  \n",
+            "stylesData": "\n    .input-dropdown-wrapper {\n      max-width: 368px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n    }\n    \n    .input-label {\n      font-size: 14px;\n      font-weight: 500;\n      color: #111827;\n      margin: 0 0 8px 0;\n      display: block;\n      line-height: 1.4;\n    }\n    \n    .input-field-container {\n      position: relative;\n      margin-bottom: 0;\n    }\n    \n    .supporting-text {\n      font-size: 12px;\n      color: #6B7280;\n      margin: 0;\n      line-height: 1.4;\n    }\n  \n",
             "extends": []
         },
         {
@@ -1348,102 +1123,8 @@
             "extends": []
         },
         {
-            "name": "PageComponent",
-            "id": "component-PageComponent-21dd6eb370b4983b5c21c84d40e6f54d266a9d9af9889e6e76b35c43058bd53b3e451bad089d5adf4bea46647ba10265a2fa8cb15630398e75636307d4817fc6",
-            "file": "src/stories/page.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "storybook-page",
-            "styleUrls": [
-                "./page.css"
-            ],
-            "styles": [],
-            "template": "<article>  <storybook-header\n    [user]=\"user\"\n    (onLogout)=\"doLogout()\"\n    (onLogin)=\"doLogin()\"\n    (onCreateAccount)=\"doCreateAccount()\"\n  ></storybook-header>\n  <section class=\"storybook-page\">\n    <h2>Pages in Storybook</h2>\n    <p>\n      We recommend building UIs with a\n      <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n        <strong>component-driven</strong>\n      </a>\n      process starting with atomic components and ending with pages.\n    </p>\n    <p>\n      Render pages with mock data. This makes it easy to build and review page states without\n      needing to navigate to them in your app. Here are some handy patterns for managing page data\n      in Storybook:\n    </p>\n    <ul>\n      <li>\n        Use a higher-level connected component. Storybook helps you compose such data from the\n        \"args\" of child component stories\n      </li>\n      <li>\n        Assemble data in the page component from your services. You can mock these services out\n        using Storybook.\n      </li>\n    </ul>\n    <p>\n      Get a guided tutorial on component-driven development at\n      <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n        Storybook tutorials\n      </a>\n      . Read more in the\n      <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n      .\n    </p>\n    <div class=\"tip-wrapper\">\n      <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n      <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n        <g fill=\"none\" fillRule=\"evenodd\">\n          <path\n            d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n            id=\"a\"\n            fill=\"#999\"\n          />\n        </g>\n      </svg>\n      Viewports addon in the toolbar\n    </div>\n  </section>\n</article>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "user",
-                    "defaultValue": "null",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "User | null",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 69
-                }
-            ],
-            "methodsClass": [
-                {
-                    "name": "doCreateAccount",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 79,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "doLogin",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 75,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "doLogout",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 71,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [
-                {
-                    "name": "CommonModule",
-                    "type": "module"
-                },
-                {
-                    "name": "HeaderComponent",
-                    "type": "component"
-                }
-            ],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\nimport { HeaderComponent } from './header.component';\nimport type { User } from './user';\n\n@Component({\n  selector: 'storybook-page',\n  standalone: true,\n  imports: [CommonModule, HeaderComponent],\n  template: `<article>\n  <storybook-header\n    [user]=\"user\"\n    (onLogout)=\"doLogout()\"\n    (onLogin)=\"doLogin()\"\n    (onCreateAccount)=\"doCreateAccount()\"\n  ></storybook-header>\n  <section class=\"storybook-page\">\n    <h2>Pages in Storybook</h2>\n    <p>\n      We recommend building UIs with a\n      <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n        <strong>component-driven</strong>\n      </a>\n      process starting with atomic components and ending with pages.\n    </p>\n    <p>\n      Render pages with mock data. This makes it easy to build and review page states without\n      needing to navigate to them in your app. Here are some handy patterns for managing page data\n      in Storybook:\n    </p>\n    <ul>\n      <li>\n        Use a higher-level connected component. Storybook helps you compose such data from the\n        \"args\" of child component stories\n      </li>\n      <li>\n        Assemble data in the page component from your services. You can mock these services out\n        using Storybook.\n      </li>\n    </ul>\n    <p>\n      Get a guided tutorial on component-driven development at\n      <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n        Storybook tutorials\n      </a>\n      . Read more in the\n      <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n      .\n    </p>\n    <div class=\"tip-wrapper\">\n      <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n      <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n        <g fill=\"none\" fillRule=\"evenodd\">\n          <path\n            d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n            id=\"a\"\n            fill=\"#999\"\n          />\n        </g>\n      </svg>\n      Viewports addon in the toolbar\n    </div>\n  </section>\n</article>`,\n  styleUrls: ['./page.css'],\n})\nexport class PageComponent {\n  user: User | null = null;\n\n  doLogout() {\n    this.user = null;\n  }\n\n  doLogin() {\n    this.user = { name: 'Jane Doe' };\n  }\n\n  doCreateAccount() {\n    this.user = { name: 'Jane Doe' };\n  }\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".storybook-page {\n  margin: 0 auto;\n  padding: 48px 20px;\n  max-width: 600px;\n  color: #333;\n  font-size: 14px;\n  line-height: 24px;\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n}\n\n.storybook-page h2 {\n  display: inline-block;\n  vertical-align: top;\n  margin: 0 0 4px;\n  font-weight: 700;\n  font-size: 32px;\n  line-height: 1;\n}\n\n.storybook-page p {\n  margin: 1em 0;\n}\n\n.storybook-page a {\n  color: inherit;\n}\n\n.storybook-page ul {\n  margin: 1em 0;\n  padding-left: 30px;\n}\n\n.storybook-page li {\n  margin-bottom: 8px;\n}\n\n.storybook-page .tip {\n  display: inline-block;\n  vertical-align: top;\n  margin-right: 10px;\n  border-radius: 1em;\n  background: #e7fdd8;\n  padding: 4px 12px;\n  color: #357a14;\n  font-weight: 700;\n  font-size: 11px;\n  line-height: 12px;\n}\n\n.storybook-page .tip-wrapper {\n  margin-top: 40px;\n  margin-bottom: 40px;\n  font-size: 13px;\n  line-height: 20px;\n}\n\n.storybook-page .tip-wrapper svg {\n  display: inline-block;\n  vertical-align: top;\n  margin-top: 3px;\n  margin-right: 4px;\n  width: 12px;\n  height: 12px;\n}\n\n.storybook-page .tip-wrapper svg path {\n  fill: #1ea7fd;\n}\n",
-                    "styleUrl": "./page.css"
-                }
-            ],
-            "stylesData": "",
-            "extends": []
-        },
-        {
             "name": "PlaceholderComponent",
-            "id": "component-PlaceholderComponent-339c23840bf4b10a60273f646f3576608b5f736017a32e05412bb50ab84eb6a2155d00a24a05423ef0d49ad411da22d10a701a646a40f8f5eaf07c91b5cc0d66",
+            "id": "component-PlaceholderComponent-87174121b579266d065702dd2a3067e21ec24b06431d98741fdb815b11e9801840a8fd5b67d6a735ee04fd0d33a7d1c3843f5db94065e3480bc43ce44a6284ab",
             "file": "src/stories/Planexa/placeholder.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1455,7 +1136,7 @@
                 "./placeholder.component.css"
             ],
             "styles": [],
-            "template": "<div class=\"input-field-container\">\n  <!-- Label -->\n  <label *ngIf=\"label && showLabel\" class=\"input-label\" [for]=\"inputId\">\n    {{ label }}\n  </label>\n\n  <!-- Input container avec icônes -->\n  <div class=\"input-wrapper\">\n    <!-- Icône de gauche -->\n    <div *ngIf=\"leftIcon\" class=\"input-icon left-icon\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8Z\" fill=\"#6B7280\"/>\n        <path d=\"M8 9C5.23858 9 3 11.2386 3 14H13C13 11.2386 10.7614 9 8 9Z\" fill=\"#6B7280\"/>\n      </svg>\n    </div>\n\n    <!-- Input field -->\n    <input\n      [id]=\"inputId\"\n      class=\"input-field\"\n      [class.no-border]=\"!showBorder\"\n      [type]=\"type\"\n      [placeholder]=\"placeholder\"\n      [value]=\"value\"\n      [disabled]=\"disabled\"\n      [readonly]=\"readonly\"\n      (input)=\"onInput($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    />\n\n    <!-- Icône de droite (dropdown) -->\n    <div *ngIf=\"rightIcon\" class=\"input-icon right-icon\" (click)=\"onDropdownClick()\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M4 6L8 10L12 6\" stroke=\"#374151\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      </svg>\n    </div>\n  </div>\n\n  <!-- Supporting text -->\n  <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">\n    {{ supportingText }}\n  </p>\n</div>\n",
+            "template": "<div class=\"input-field-container\">\n  <!-- Label -->\n  <label *ngIf=\"label && showLabel\" class=\"input-label\" [for]=\"inputId\">\n    {{ label }}\n  </label>\n\n  <!-- Input container avec icônes -->\n  <div class=\"input-wrapper\">\n    <!-- Icône de gauche -->\n    <div *ngIf=\"leftIcon\" class=\"input-icon left-icon\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8Z\" fill=\"#6B7280\"/>\n        <path d=\"M8 9C5.23858 9 3 11.2386 3 14H13C13 11.2386 10.7614 9 8 9Z\" fill=\"#6B7280\"/>\n      </svg>\n    </div>\n\n    <!-- Input field -->\n    <input\n      [id]=\"inputId\"\n      class=\"input-field\"\n      [class.no-border]=\"!showBorder\"\n      [type]=\"type\"\n      [placeholder]=\"placeholder\"\n      [value]=\"value\"\n      [disabled]=\"disabled\"\n      [readonly]=\"readonly\"\n      (input)=\"onInput($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    />\n\n    <!-- Icône de droite (dropdown) -->\n    <div *ngIf=\"rightIcon\" class=\"input-icon right-icon\" (click)=\"onDropdownClick()\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n        <path d=\"M4 6L8 10L12 6\" stroke=\"#6B7280\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      </svg>\n    </div>\n  </div>\n\n  <!-- Supporting text -->\n  <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">\n    {{ supportingText }}\n  </p>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1751,11 +1432,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-input-field',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"input-field-container\">\n      <!-- Label -->\n      <label *ngIf=\"label && showLabel\" class=\"input-label\" [for]=\"inputId\">\n        {{ label }}\n      </label>\n      \n      <!-- Input container avec icônes -->\n      <div class=\"input-wrapper\">\n        <!-- Icône de gauche -->\n        <div *ngIf=\"leftIcon\" class=\"input-icon left-icon\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8Z\" fill=\"#6B7280\"/>\n            <path d=\"M8 9C5.23858 9 3 11.2386 3 14H13C13 11.2386 10.7614 9 8 9Z\" fill=\"#6B7280\"/>\n          </svg>\n        </div>\n        \n        <!-- Input field -->\n        <input \n          [id]=\"inputId\"\n          class=\"input-field\"\n          [class.no-border]=\"!showBorder\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          [disabled]=\"disabled\"\n          [readonly]=\"readonly\"\n          (input)=\"onInput($event)\"\n          (focus)=\"onFocus($event)\"\n          (blur)=\"onBlur($event)\"\n        />\n        \n        <!-- Icône de droite (dropdown) -->\n        <div *ngIf=\"rightIcon\" class=\"input-icon right-icon\" (click)=\"onDropdownClick()\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M4 6L8 10L12 6\" stroke=\"#374151\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          </svg>\n        </div>\n      </div>\n      \n      <!-- Supporting text -->\n      <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">\n        {{ supportingText }}\n      </p>\n    </div>\n  `,\n  styleUrls: ['./placeholder.component.css'],\n})\nexport class PlaceholderComponent {\n  /** Label au-dessus du champ */\n  @Input()\n  label: string = 'Input title';\n\n  /** Texte placeholder dans l'input */\n  @Input()\n  placeholder: string = 'Placeholder';\n\n  /** Texte de support en dessous */\n  @Input()\n  supportingText: string = 'Supporting text';\n\n  /** Afficher ou masquer le label */\n  @Input()\n  showLabel: boolean = true;\n\n  /** Afficher ou masquer le texte de support */\n  @Input()\n  showSupportingText: boolean = true;\n\n  /** Afficher ou masquer la bordure de l'input */\n  @Input()\n  showBorder: boolean = true;\n\n  /** Valeur du champ */\n  @Input()\n  value: string = '';\n\n  /** Type d'input */\n  @Input()\n  type: string = 'text';\n\n  /** État désactivé */\n  @Input()\n  disabled: boolean = false;\n\n  /** État lecture seule */\n  @Input()\n  readonly: boolean = false;\n\n  /** Afficher l'icône de gauche */\n  @Input()\n  leftIcon: boolean = true;\n\n  /** Afficher l'icône de droite (dropdown) */\n  @Input()\n  rightIcon: boolean = true;\n\n  /** ID unique pour l'input */\n  @Input()\n  inputId: string = 'input-' + Math.random().toString(36).substr(2, 9);\n\n  /** Événements */\n  @Output()\n  valueChange = new EventEmitter<string>();\n\n  @Output()\n  inputFocus = new EventEmitter<Event>();\n\n  @Output()\n  inputBlur = new EventEmitter<Event>();\n\n  @Output()\n  dropdownClick = new EventEmitter<void>();\n\n  onInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    this.value = target.value;\n    this.valueChange.emit(this.value);\n  }\n\n  onFocus(event: Event): void {\n    this.inputFocus.emit(event);\n  }\n\n  onBlur(event: Event): void {\n    this.inputBlur.emit(event);\n  }\n\n  onDropdownClick(): void {\n    this.dropdownClick.emit();\n  }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-input-field',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"input-field-container\">\n      <!-- Label -->\n      <label *ngIf=\"label && showLabel\" class=\"input-label\" [for]=\"inputId\">\n        {{ label }}\n      </label>\n      \n      <!-- Input container avec icônes -->\n      <div class=\"input-wrapper\">\n        <!-- Icône de gauche -->\n        <div *ngIf=\"leftIcon\" class=\"input-icon left-icon\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8Z\" fill=\"#6B7280\"/>\n            <path d=\"M8 9C5.23858 9 3 11.2386 3 14H13C13 11.2386 10.7614 9 8 9Z\" fill=\"#6B7280\"/>\n          </svg>\n        </div>\n        \n        <!-- Input field -->\n        <input \n          [id]=\"inputId\"\n          class=\"input-field\"\n          [class.no-border]=\"!showBorder\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          [disabled]=\"disabled\"\n          [readonly]=\"readonly\"\n          (input)=\"onInput($event)\"\n          (focus)=\"onFocus($event)\"\n          (blur)=\"onBlur($event)\"\n        />\n        \n        <!-- Icône de droite (dropdown) -->\n        <div *ngIf=\"rightIcon\" class=\"input-icon right-icon\" (click)=\"onDropdownClick()\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <path d=\"M4 6L8 10L12 6\" stroke=\"#6B7280\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          </svg>\n        </div>\n      </div>\n      \n      <!-- Supporting text -->\n      <p *ngIf=\"supportingText && showSupportingText\" class=\"supporting-text\">\n        {{ supportingText }}\n      </p>\n    </div>\n  `,\n  styleUrls: ['./placeholder.component.css'],\n})\nexport class PlaceholderComponent {\n  /** Label au-dessus du champ */\n  @Input()\n  label: string = 'Input title';\n\n  /** Texte placeholder dans l'input */\n  @Input()\n  placeholder: string = 'Placeholder';\n\n  /** Texte de support en dessous */\n  @Input()\n  supportingText: string = 'Supporting text';\n\n  /** Afficher ou masquer le label */\n  @Input()\n  showLabel: boolean = true;\n\n  /** Afficher ou masquer le texte de support */\n  @Input()\n  showSupportingText: boolean = true;\n\n  /** Afficher ou masquer la bordure de l'input */\n  @Input()\n  showBorder: boolean = true;\n\n  /** Valeur du champ */\n  @Input()\n  value: string = '';\n\n  /** Type d'input */\n  @Input()\n  type: string = 'text';\n\n  /** État désactivé */\n  @Input()\n  disabled: boolean = false;\n\n  /** État lecture seule */\n  @Input()\n  readonly: boolean = false;\n\n  /** Afficher l'icône de gauche */\n  @Input()\n  leftIcon: boolean = true;\n\n  /** Afficher l'icône de droite (dropdown) */\n  @Input()\n  rightIcon: boolean = true;\n\n  /** ID unique pour l'input */\n  @Input()\n  inputId: string = 'input-' + Math.random().toString(36).substr(2, 9);\n\n  /** Événements */\n  @Output()\n  valueChange = new EventEmitter<string>();\n\n  @Output()\n  inputFocus = new EventEmitter<Event>();\n\n  @Output()\n  inputBlur = new EventEmitter<Event>();\n\n  @Output()\n  dropdownClick = new EventEmitter<void>();\n\n  onInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    this.value = target.value;\n    this.valueChange.emit(this.value);\n  }\n\n  onFocus(event: Event): void {\n    this.inputFocus.emit(event);\n  }\n\n  onBlur(event: Event): void {\n    this.inputBlur.emit(event);\n  }\n\n  onDropdownClick(): void {\n    this.dropdownClick.emit();\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "/* Input Field Component - Basé sur le design Figma */\n\n.input-field-container {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  width: 368px;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n}\n\n/* Label */\n.input-label {\n  font-size: 14px;\n  font-weight: 500;\n  color: #111827;\n  margin: 0;\n  line-height: 1.4;\n}\n\n/* Container de l'input avec icônes */\n.input-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n}\n\n/* Champ input principal */\n.input-field {\n  width: 100%;\n  height: 44px;\n  padding: 12px 40px 12px 40px; /* Espace pour les icônes */\n  border: 1px solid #D1D5DB;\n  border-radius: 8px;\n  font-size: 14px;\n  color: #111827;\n  background-color: #FFFFFF;\n  transition: all 0.2s ease-in-out;\n  outline: none;\n  box-sizing: border-box;\n}\n\n.input-field::placeholder {\n  color: #9CA3AF;\n  font-size: 14px;\n}\n\n/* États de focus */\n.input-field:focus {\n  border-color: #3B82F6;\n  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);\n}\n\n/* Variante sans bordure */\n.input-field.no-border {\n  border: none;\n  background-color: transparent;\n  box-shadow: none;\n}\n\n.input-field.no-border:focus {\n  border: none;\n  box-shadow: none;\n}\n\n/* S'assurer que les icônes restent visibles même sans bordure */\n.input-wrapper .input-icon {\n  z-index: 2;\n  pointer-events: auto;\n}\n\n.input-wrapper .right-icon {\n  right: 8px;\n  background-color: rgba(255, 255, 255, 0.9);\n  border-radius: 2px;\n  padding: 2px;\n}\n\n.input-field:hover:not(:focus) {\n  border-color: #9CA3AF;\n}\n\n/* État disabled */\n.input-field:disabled {\n  background-color: #F9FAFB;\n  color: #9CA3AF;\n  cursor: not-allowed;\n}\n\n/* État readonly */\n.input-field:read-only {\n  cursor: pointer;\n  background-color: transparent;\n}\n\n.input-field:read-only:focus {\n  outline: none;\n}\n\n/* Icônes */\n.input-icon {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 16px;\n  height: 16px;\n  z-index: 1;\n}\n\n.left-icon {\n  left: 12px;\n}\n\n.right-icon {\n  right: 12px;\n  cursor: pointer;\n  transition: opacity 0.2s ease;\n}\n\n.right-icon:hover {\n  opacity: 0.7;\n}\n\n/* Supporting text */\n.supporting-text {\n  font-size: 12px;\n  color: #6B7280;\n  margin: 0;\n  line-height: 1.4;\n}\n\n/* États d'erreur */\n.input-field-container.error .input-field {\n  border-color: #EF4444;\n}\n\n.input-field-container.error .input-field:focus {\n  border-color: #EF4444;\n  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);\n}\n\n.input-field-container.error .supporting-text {\n  color: #EF4444;\n}\n\n/* États de succès */\n.input-field-container.success .input-field {\n  border-color: #10B981;\n}\n\n.input-field-container.success .input-field:focus {\n  border-color: #10B981;\n  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);\n}\n\n.input-field-container.success .supporting-text {\n  color: #10B981;\n}\n\n/* Variantes de taille */\n.input-field-container.small {\n  width: 280px;\n}\n\n.input-field-container.small .input-field {\n  height: 36px;\n  padding: 8px 32px 8px 32px;\n  font-size: 13px;\n}\n\n.input-field-container.large {\n  width: 480px;\n}\n\n.input-field-container.large .input-field {\n  height: 52px;\n  padding: 16px 48px 16px 48px;\n  font-size: 16px;\n}\n",
+                    "data": "/* Input Field Component - Basé sur le design Figma */\n\n.input-field-container {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  width: 368px;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;\n}\n\n/* Label */\n.input-label {\n  font-size: 14px;\n  font-weight: 500;\n  color: #111827;\n  margin: 0;\n  line-height: 1.4;\n}\n\n/* Container de l'input avec icônes */\n.input-wrapper {\n  display: flex;\n  align-items: center;\n}\n\n/* Champ input principal */\n.input-field {\n  width: 100%;\n  height: 44px;\n  padding: 12px 24px 12px 15px; /* Réduit le padding droit de 32px à 24px */\n  border: 1px solid #D1D5DB;\n  border-radius: 8px;\n  font-size: 14px;\n  color: #111827;\n  background-color: #FFFFFF;\n  transition: all 0.2s ease-in-out;\n  outline: none;\n  box-sizing: border-box;\n}\n\n.input-field::placeholder {\n  color: #9CA3AF;\n  font-size: 14px;\n}\n\n/* États de focus */\n.input-field:focus {\n  border-color: #3B82F6;\n  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);\n}\n\n/* Variante sans bordure */\n.input-field.no-border {\n  border: none;\n  background-color: transparent;\n  box-shadow: none;\n}\n\n.input-field.no-border:focus {\n  border: none;\n  box-shadow: none;\n}\n\n/* S'assurer que les icônes restent visibles même sans bordure */\n.input-wrapper .input-icon {\n  z-index: 2;\n  pointer-events: auto;\n}\n\n.input-wrapper .right-icon {\n  right: 4px; /* Rapproché de 8px à 4px */\n  background-color: rgba(255, 255, 255, 0.9);\n  border-radius: 2px;\n  padding: 2px;\n}\n\n.input-field:hover:not(:focus) {\n  border-color: #9CA3AF;\n}\n\n/* État disabled */\n.input-field:disabled {\n  background-color: #F9FAFB;\n  color: #9CA3AF;\n  cursor: not-allowed;\n}\n\n/* État readonly */\n.input-field:read-only {\n  cursor: pointer;\n  background-color: transparent;\n}\n\n.input-field:read-only:focus {\n  outline: none;\n}\n\n/* Icônes */\n.input-icon {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 16px;\n  height: 16px;\n  z-index: 1;\n}\n\n.left-icon {\n  left: 12px;\n}\n\n.right-icon {\n  right: 4px; /* Réduit de 8px à 4px pour rapprocher encore plus la flèche du texte */\n  cursor: pointer;\n  transition: opacity 0.2s ease;\n}\n\n.right-icon:hover {\n  opacity: 0.7;\n}\n\n/* Supporting text */\n.supporting-text {\n  font-size: 12px;\n  color: #6B7280;\n  margin: 0;\n  line-height: 1.4;\n}\n\n/* États d'erreur */\n.input-field-container.error .input-field {\n  border-color: #EF4444;\n}\n\n.input-field-container.error .input-field:focus {\n  border-color: #EF4444;\n  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);\n}\n\n.input-field-container.error .supporting-text {\n  color: #EF4444;\n}\n\n/* États de succès */\n.input-field-container.success .input-field {\n  border-color: #10B981;\n}\n\n.input-field-container.success .input-field:focus {\n  border-color: #10B981;\n  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);\n}\n\n.input-field-container.success .supporting-text {\n  color: #10B981;\n}\n\n/* Variantes de taille */\n.input-field-container.small {\n  width: 280px;\n}\n\n.input-field-container.small .input-field {\n  height: 36px;\n  padding: 8px 32px 8px 32px;\n  font-size: 13px;\n}\n\n.input-field-container.large {\n  width: 480px;\n}\n\n.input-field-container.large .input-field {\n  height: 52px;\n  padding: 16px 48px 16px 48px;\n  font-size: 16px;\n}\n",
                     "styleUrl": "./placeholder.component.css"
                 }
             ],
@@ -1972,7 +1653,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 22,
+        "count": 23,
         "status": "low",
         "files": [
             {
@@ -1999,8 +1680,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "AppHeaderComponent",
-                "coveragePercent": 16,
-                "coverageCount": "2/12",
+                "coveragePercent": 14,
+                "coverageCount": "2/14",
                 "status": "low"
             },
             {
@@ -2082,42 +1763,6 @@
                 "name": "TabItem",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/button.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ButtonComponent",
-                "coveragePercent": 83,
-                "coverageCount": "5/6",
-                "status": "very-good"
-            },
-            {
-                "filePath": "src/stories/header.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "HeaderComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/page.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "PageComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/user.ts",
-                "type": "interface",
-                "linktype": "interface",
-                "name": "User",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
                 "status": "low"
             }
         ]
