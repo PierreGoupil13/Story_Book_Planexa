@@ -1,0 +1,165 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  height: 72px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1000;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  flex-shrink: 1;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.logo-icon svg {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  letter-spacing: -0.025em;
+}
+
+/* Navigation Section */
+.navigation-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* User Section */
+
+.user-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 200px; /* Ajustable selon tes besoins */
+  /* overflow: hidden; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.user-section {
+  flex-shrink: 1;
+  flex-grow: 0;
+}
+
+
+
+
+
+.user-profile:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.user-profile:active {
+  transform: scale(0.98);
+}
+
+/* Dropdown Arrow */
+.dropdown-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+}
+
+.user-profile:hover .dropdown-arrow {
+  color: #64748b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 8px 16px;
+    height: 64px;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logo-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .navigation-section {
+    max-width: 300px;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .user-profile {
+    min-width: auto;
+    padding: 6px;
+  }
+
+  .dropdown-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 8px 12px;
+  }
+
+  .sync-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .navigation-section {
+    max-width: 250px;
+  }
+}

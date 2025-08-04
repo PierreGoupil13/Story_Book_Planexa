@@ -27,17 +27,19 @@ export interface NavigationBarConfig {
             (click)="onPreviousClick()"
             [attr.aria-label]="'Période précédente'"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10.75 12.25L10.131 11.6312L6.894 8.375H14.5V7.125H6.894L10.131 3.8687L10.75 3.25L6.5 7L10.75 12.25Z" fill="currentColor"/>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.75 16.25L9.63125 15.3688L4.89375 10.625H17.5V9.375H4.89375L9.63125 4.63125L8.75 3.75L2.5 10L8.75 16.25Z" fill="#334155"/>
             </svg>
+
+
           </button>
           <button 
             class="nav-button nav-button--right" 
             (click)="onNextClick()"
             [attr.aria-label]="'Période suivante'"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M5.25 3.75L5.869 4.3687L9.106 7.625H1.5V8.875H9.106L5.869 12.1312L5.25 12.75L9.5 9L5.25 3.75Z" fill="currentColor"/>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.25 3.75L10.3688 4.63125L15.1063 9.375L2.5 9.375L2.5 10.625L15.1063 10.625L10.3688 15.3687L11.25 16.25L17.5 10L11.25 3.75Z" fill="#334155"/>
             </svg>
           </button>
         </div>

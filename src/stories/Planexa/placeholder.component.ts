@@ -8,7 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   template: `
     <div class="input-field-container">
       <!-- Label -->
-      <label *ngIf="label" class="input-label" [for]="inputId">
+      <label *ngIf="label && showLabel" class="input-label" [for]="inputId">
         {{ label }}
       </label>
       
@@ -26,10 +26,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         <input 
           [id]="inputId"
           class="input-field"
+          [class.no-border]="!showBorder"
           [type]="type"
           [placeholder]="placeholder"
           [value]="value"
           [disabled]="disabled"
+          [readonly]="readonly"
           (input)="onInput($event)"
           (focus)="onFocus($event)"
           (blur)="onBlur($event)"
@@ -44,7 +46,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       </div>
       
       <!-- Supporting text -->
-      <p *ngIf="supportingText" class="supporting-text">
+      <p *ngIf="supportingText && showSupportingText" class="supporting-text">
         {{ supportingText }}
       </p>
     </div>
@@ -64,6 +66,18 @@ export class PlaceholderComponent {
   @Input()
   supportingText: string = 'Supporting text';
 
+  /** Afficher ou masquer le label */
+  @Input()
+  showLabel: boolean = true;
+
+  /** Afficher ou masquer le texte de support */
+  @Input()
+  showSupportingText: boolean = true;
+
+  /** Afficher ou masquer la bordure de l'input */
+  @Input()
+  showBorder: boolean = true;
+
   /** Valeur du champ */
   @Input()
   value: string = '';
@@ -75,6 +89,10 @@ export class PlaceholderComponent {
   /** État désactivé */
   @Input()
   disabled: boolean = false;
+
+  /** État lecture seule */
+  @Input()
+  readonly: boolean = false;
 
   /** Afficher l'icône de gauche */
   @Input()

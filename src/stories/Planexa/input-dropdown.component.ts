@@ -19,8 +19,10 @@ import { DropdownComponent } from './dropdown.component';
           [placeholder]="placeholder"
           [supportingText]="''"
           [value]="selectedValue"
-          [rightIcon]="true"
+          [rightIcon]="rightIcon"
           [leftIcon]="leftIcon"
+          [showBorder]="showBorder"
+          [readonly]="true"
           (dropdownClick)="toggleDropdown()"
         >
         </storybook-input-field>
@@ -36,12 +38,12 @@ import { DropdownComponent } from './dropdown.component';
       </div>
       
       <!-- Supporting text en bas -->
-      <p *ngIf="supportingText" class="supporting-text">{{ supportingText }}</p>
+      <p *ngIf="supportingText && showSupportingText" class="supporting-text">{{ supportingText }}</p>
     </div>
   `,
   styles: [`
     .input-dropdown-wrapper {
-      width: 368px;
+      max-width: 368px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     }
     
@@ -56,7 +58,7 @@ import { DropdownComponent } from './dropdown.component';
     
     .input-field-container {
       position: relative;
-      margin-bottom: 8px;
+      margin-bottom: 0;
     }
     
     .supporting-text {
@@ -88,9 +90,25 @@ export class InputDropdownComponent {
   @Input()
   leftIcon: boolean = true;
 
+  /** Afficher l'icône de droite (dropdown) */
+  @Input()
+  rightIcon: boolean = true;
+
   /** Valeur sélectionnée */
   @Input()
   selectedValue: string = '';
+
+  /** Afficher ou masquer le texte de support */
+  @Input()
+  showSupportingText: boolean = true;
+
+  /** Afficher ou masquer la bordure de l'input */
+  @Input()
+  showBorder: boolean = true;
+
+  /** Largeur du composant (optionnelle) */
+  @Input()
+  width?: number;
 
   /** État du dropdown */
   dropdownOpen: boolean = false;
